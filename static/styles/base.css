@@ -1,0 +1,272 @@
+/*-------------------- General --------------------*/
+body
+{
+    height: 100%;
+    width: 100%;
+    line-height: 1;
+    overflow-y: scroll;
+    background: #f5f8fa;
+    padding: 0px !important;
+}
+
+/*-------------------- Types --------------------*/
+
+a
+{
+	cursor: pointer;
+}
+
+h1
+{
+	font-family: 'texgyreheros';
+    color: #39b2dd;
+    font-size: 35px;
+}
+
+h2
+{
+    font-size: 1.7em;
+    font-family: 'bebas';
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+h3
+{
+    font-family: 'texgyreheros';
+    font-size: 1.1em;
+    margin-bottom: 3px;
+    margin-top: 3px;
+}
+
+img
+{
+	border: none;
+}
+
+/*-------------------- Modal --------------------*/
+
+.modal-open
+{
+	overflow-y: scroll !important;
+	overflow: visible;
+}
+
+.close
+{
+	color: #fff;
+    text-shadow: none;
+    opacity: 1;
+}
+
+.modal
+{
+	top: 100px;
+}
+
+.form-control-1
+{
+	border: 1px solid #e1e8ed;
+	resize: none;
+	-webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+    font-family: 'texgyreheros';
+    background: #fff !important;
+}
+
+.form-control-1:focus
+{
+	border-color: #e1e8ed;
+}
+
+.modal-1-content
+{
+	border-radius: 0px;
+	webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.modal-1-header
+{
+	background: #00afdb;
+	text-align: -webkit-center;
+}
+
+.modal-1-title
+{
+	line-height: 1;
+	color: #fff;
+	font-family: 'texgyreheros';
+}
+
+.modal-1-footer
+{
+	border-top: none;
+	padding: 0 15px 15px;
+}
+
+/*-------------------- Banner --------------------*/
+
+.banner
+{
+	width: 100%;
+	height: 500px;
+	position: fixed;
+}
+
+.banner img
+{
+	width: 100%;
+	height: 100%;
+}
+
+/*-------------------- bannerbase.html --------------------*/
+
+.content
+{
+	min-height: 862px;
+	position: relative;
+    margin-top: 500px;
+    background: #fff;
+}
+
+/*-------------------- Buttons --------------------*/
+
+footer-button
+{
+	font-family: 'Rajdhani';
+  	font-weight: 800;
+	font-size: 20pt;
+	margin-top: 0;
+	text-align : center;
+	color: #96CDCD;
+}
+
+.card-box-button
+{
+    width: 185px;
+    color: rgb(255, 255, 255);
+    display: block;
+    background-color: rgb(0, 175, 219);
+    font-size: 1.5em;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgb(255, 255, 255);
+    margin: 0px auto;
+    padding: 15px 0px;
+    font-family: 'texgyreheros';
+    text-transform: uppercase;
+}
+
+.card-box-button:focus
+{
+	outline: none;
+}
+
+.card-area-button
+{
+	min-height: 50px;
+    border: 1px solid #fff;
+    background-color: #fff;
+    color: #000;
+    font-family: 'bebas';
+    width: 100%;
+}
+
+.card-area-button:focus
+{
+	outline: none;
+}
+
+.glyphicon-button
+{
+	background: transparent;
+	border: none;
+	margin-right: 15px;
+    padding-left: 0px;
+    padding-right: 0px;
+    color: #aab8c2;
+    display: inline-block;
+    font-size: 16px;
+    line-height: 1;
+}
+
+.glyphicon-button:focus
+{
+	outline: none;
+}
+
+.glyphicon-button span:hover
+{
+	color: #00afdb;
+}
+
+.image-upload-button
+{
+	position: absolute;
+    top: 162px;
+    right: 10px;
+    font-size: 20px;
+    opacity: 0.3;
+    cursor: pointer;
+}
+
+.button-1
+{
+	background-color: #f5f8fa;
+    background-image: linear-gradient(#fff,#f5f8fa);
+    border: 1px solid #e1e8ed;
+    border-radius: 4px;
+    color: #66757f;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: bold;
+    line-height: normal;
+    padding: 6px 16px;
+    position: relative;
+}
+
+.button-1:focus
+{
+	outline:0;
+}
+
+.button-2
+{
+	color: #fff;
+    cursor: pointer;
+    padding: 6px 16px;
+    opacity: 1;
+    background-color: #00afdb;
+    border: 1px solid #e1e8ed;
+    border-radius: 4px;
+}
+
+.button-2:focus
+{
+    box-shadow: 0 0 0 1px #fff, 0 0 0 3px rgba(0, 175, 219, 0.5);
+    outline:0;
+}
+
+.button-file
+{
+	background: #00afdb;
+	color: #fff;
+	border-radius: 4px;
+	border: 1px solid transparent;
+	font-family: 'texgyreheros';
+}
+
+.button-file:hover, .button-file:focus
+{
+	color: #fff;
+	outline: none;
+}
+
+.button-file:active
+{
+	box-shadow: none;
+}

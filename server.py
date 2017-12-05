@@ -24,10 +24,13 @@ def get_elephantsql_dsn(vcap_services):
     return dsn
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def home_page():
-    now = datetime.datetime.now()
-    return render_template('home.html', current_time=now.ctime())
+    if request.method == 'GET':
+        now = datetime.datetime.now()
+
+        return render_template('intro.html', current_time=now.ctime())
+
 
 if __name__ == '__main__':
     VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')

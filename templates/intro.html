@@ -1,0 +1,45 @@
+<!-- Elif Özer -->
+
+{% extends "basebanner.html" %}
+
+{% block head %}
+	<script type="text/javascript" src="{{ url_for('static', filename='scripts/intro.js') }}"></script>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/animateflyin.css') }}" />
+{% endblock %}
+
+{% block title %}Ticketosaur{% endblock %}
+
+{% block banner %}
+	<img src="../static/images/bannerintro.jpeg">
+{% endblock %}
+
+{%block content %}
+	<div class="flyInText">
+		<ul class="flyInText_ul firststate">
+			<li>W</li>
+			<li>e</li>
+			<li>l</li>
+			<li>c</li>
+			<li>o</li>
+			<li>m</li>
+			<li>e</li>
+			<li>  </li>
+			<li>t</li>
+			<li>o</li>
+			<li>  </li>
+			<li>T</li>
+			<li>i</li>
+			<li>c</li>
+			<li>k</li>
+			<li>e</li>
+			<li>t</li>
+			<li>o</li>
+			<li>s</li>
+			<li>a</li>
+			<li>u</li>
+			<li>r</li>
+		</ul>
+	</div>
+
+	<img id ="underConstruction" class="flyInImage firststate" style="display: block; margin: auto; padding-top:100px;" src="../static/images/underconstruction.jpg"></img>
+{% endblock %}

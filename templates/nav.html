@@ -1,0 +1,75 @@
+<!-- Elif Ozer -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+
+		<script type="text/javascript" src="{{ url_for('static', filename='scripts/jquery.min.js') }}"></script>
+		<script type="text/javascript" src="{{ url_for('static', filename='scripts/base.js') }}"></script>
+
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}" />
+		<script type="text/javascript" src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/nav.css') }}" />
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/font.css') }}" />
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/base.css') }}" />
+
+		{% block head %}{% endblock %}
+
+		<title>
+			{% block title %}{% endblock %}
+		</title>
+	</head>
+
+	<body>
+		<div class="wrapper container page-wrapper" id="top">
+			<header class="navbar-custom-desktop navbar-fixed-top">
+				<section class="navbar-custom-top clearfix">
+					<div class="col-lg-10 col-lg-offset-1 col-md-12 col-md-offset-0" style="padding: 8px 10px 0px 0px;">
+						<nav class="pull-right" style="margin-bottom: 8px;">
+							{% if not authenticated %}
+							    <a href="#">Login</a>
+								<a>/</a>
+								<a href="#">Register</a>
+							{% endif %}
+
+							{% if authenticated %}
+								<div class="account-notifications">
+								</div>
+
+								<div class="dropdown">
+								</div>
+							{% endif %}
+						</nav>
+					</div>
+				</section>
+
+				<section class="navbar-custom-bottom clearfix">
+					<div class="col-lg-10 col-lg-offset-1 col-md-12 col-md-offset-0" style="padding: 20px;">
+						<div class="table" style="display: table; height: 100%; width: 100%;">
+							<div class="cell" style="display: table-cell; vertical-align: middle; height: 100%;">
+			      				<a class="main-logo pull-left" href="/">T i c k e t o s a u r</a>
+
+								<nav style="margin: 0 auto; display: table!important;">
+				    				<ul>
+				    					<li><a href="#">Musicians</a></li>
+				    					<li><a href="#">Concerts</a></li>
+				    					<li><a href="#">Theaters</a></li>
+										<li><a href="#">News</a></li>
+				    				</ul>
+			    				</nav>
+							</div>
+						</div>
+					</div>
+				</section>
+			</header>
+
+			<div class="page-container">
+				{% block pagecontent %}{% endblock %}
+			</div>
+
+			{% block bannerpagecontent %}{% endblock %}
+		</div>
+	</body>
+</html>

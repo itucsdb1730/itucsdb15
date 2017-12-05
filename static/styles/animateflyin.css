@@ -1,0 +1,161 @@
+/*---- Fly-in text ----*/
+
+.flyInText
+{
+	background: #fff;
+	display: flex;
+	justify-content: center;
+	padding-top: 100px;
+}
+
+.flyInText_ul
+{
+	list-style: none;
+	padding-left: 0px;
+}
+
+.flyInText_ul li
+{
+	display: inline-block;
+	margin-right: 8px;
+  	font-family: 'Rajdhani';
+  	font-weight: 300;
+	font-size: 40pt;
+	color: #292f33;
+	opacity: 1;
+	transition: all 2.5s ease;
+}
+
+.flyInText_ul li:last-child
+{
+	margin-right: 0;
+}
+
+.flyInText_ul.firststate li
+{
+	opacity: 0;
+}
+
+.flyInText_ul.firststate li:nth-child(1)
+{
+	transform: translateX(-200px) translateY(-200px);
+}
+
+.flyInText_ul.firststate li:nth-child(2)
+{
+	transform: translateX(20px) translateY(100px);
+}
+
+.flyInText_ul.firststate li:nth-child(3)
+{
+	transform: translateX(-150px) translateY(-80px);
+}
+
+.flyInText_ul.firststate li:nth-child(4)
+{
+	transform: translateX(10px) translateY(-200px);
+}
+
+.flyInText_ul.firststate li:nth-child(5)
+{
+	transform: translateX(-300px) translateY(200px);
+}
+
+.flyInText_ul.firststate li:nth-child(6)
+{
+	transform: translateX(20px) translateY(-20px);
+}
+
+.flyInText_ul.firststate li:nth-child(7)
+{
+	transform: translateX(300px) translateY(200px);
+}
+
+.flyInText_ul.firststate li:nth-child(8)
+{
+	transform: translateX(150px) translateY(-50px);
+}
+
+.flyInText_ul.firststate li:nth-child(9)
+{
+	transform: translateX(30px) translateY(-150px);
+}
+
+.flyInText_ul.firststate li:nth-child(10)
+{
+	transform: translateX(-200px) translateY(-80px);
+}
+
+.flyInText_ul.firststate li:nth-child(11)
+{
+	transform: translateX(100px) translateY(-200px);
+}
+
+.flyInText_ul.firststate li:nth-child(12)
+{
+	transform: translateX(-300px) translateY(-80px);
+}
+
+.flyInText_ul.firststate li:nth-child(13)
+{
+	transform: translateX(20px) translateY(50px);
+}
+
+.flyInText_ul.firststate li:nth-child(14)
+{
+	transform: translateX(50px) translateY(-300px);
+}
+
+.flyInText_ul.firststate li:nth-child(15)
+{
+	transform: translateX(300px) translateY(-20px);
+}
+
+.flyInText_ul.firststate li:nth-child(16)
+{
+	transform: translateX(100px) translateY(-200px);
+}
+
+.flyInText_ul.firststate li:nth-child(17)
+{
+	transform: translateX(-50px) translateY(120px);
+}
+
+.flyInText_ul.firststate li:nth-child(18)
+{
+	transform: translateX(10px) translateY(-120px);
+}
+
+.flyInText_ul.firststate li:nth-child(19)
+{
+	transform: translateX(100px) translateY(-100px);
+}
+
+.flyInText_ul.firststate li:nth-child(20)
+{
+	transform: translateX(250px) translateY(-10px);
+}
+
+.flyInText_ul.firststate li:nth-child(21)
+{
+	transform: translateX(100px) translateY(80px);
+}
+
+.flyInText_ul.firststate li:nth-child(22)
+{
+	transform: translateX(300px) translateY(-200px);
+}
+
+/*---- Fly-in image ----*/
+
+.flyInImage
+{
+	transition: all 2.5s;
+	opacity: 1;
+}
+
+.flyInImage.firststate
+{
+	transform: translateX(250px);
+	opacity: 0;
+}
