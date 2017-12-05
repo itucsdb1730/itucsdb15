@@ -23,6 +23,7 @@ def get_elephantsql_dsn(vcap_services):
 
     return dsn
 
+
 @app.route('/')
 def home_page():
     now = datetime.datetime.now()
