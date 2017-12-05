@@ -1,0 +1,2 @@
+class CurrentConfig:
+    appConfig = ""

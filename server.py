@@ -6,6 +6,8 @@ from flask import Flask
 from flask import render_template
 from flask import request
 
+from elifozer_utilities.currentconfig import CurrentConfig
+
 app = Flask(__name__)
 
 
