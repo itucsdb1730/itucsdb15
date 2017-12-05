@@ -6,6 +6,7 @@ from flask import Flask
 from flask import render_template
 from flask import request
 
+from elifozer_dbhandler import basehandler
 from elifozer_utilities.currentconfig import CurrentConfig
 
 app = Flask(__name__)
@@ -44,4 +45,5 @@ if __name__ == '__main__':
                                host='localhost' port=5432 dbname='itucsdb'"""
 
     CurrentConfig.appConfig = app.config['dsn']
+    basehandler.DbInitialize()
     app.run(host='0.0.0.0', port=port, debug=debug)

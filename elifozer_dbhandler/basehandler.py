@@ -39,3 +39,64 @@ def DbClose(connection, cursor):
     except dbapi2.DatabaseError:
         connection.rollback()
         connection.close()
+
+
+def CheckDbVersion():
+    checkQuery = """SELECT CONFIGVALUE FROM CONFIG_DBT WHERE CONFIGID = 1"""
+
+    connection,cursor = DbConnect()
+    cursor = DbExecute(checkQuery, connection, cursor)
+    currentDbVersion = cursor.fetchone()
+
+    if currentDbVersion is None:
+        insertConfigQuery = """INSERT INTO CONFIG_DBT(CONFIGID, CONFIGNAME, CONFIGVALUE) VALUES (1, %s, %s)"""
+
+        DbExecute(insertConfigQuery, connection, cursor, ('dbVersion', dbVersion))
+
+        insertAdminQuery = """INSERT INTO USERS_DBT(USERFIRSTNAME, USERLASTNAME, USERUSERNAME, USERPASSWORD, USEREMAIL, USERTYPE) VALUES (%s, %s, %s, %s, %s, %s)"""
+
+        DbExecute(insertAdminQuery, connection, cursor, ('admin', 'admin', 'elif', 'adem', 'ozere@itu.edu.tr', 1))
+
+        return
+    else:
+        DbClose(connection, cursor)
+
+        currentDbVersionInt = int(currentDbVersion[0])
+
+        if currentDbVersionInt < dbVersion:
+            DropTable()
+            DbInitialize()
+
+
+def DropTable():
+    connection, cursor = DbConnect()
+
+    dropQuery =  """DROP TABLE IF EXISTS USERS_DBT;
+                    DROP TABLE IF EXISTS CONFIG_DBT;"""
+
+    DbExecute(dropQuery, connection, cursor)
+    DbClose(connection, cursor)
+
+
+def DbInitialize():
+    connection, cursor = DbConnect()
+
+    configQuery = """CREATE TABLE IF NOT EXISTS CONFIG_DBT(
+                     CONFIGID SERIAL PRIMARY KEY,
+                     CONFIGNAME VARCHAR(40),
+                     CONFIGVALUE VARCHAR(40))"""
+
+    DbExecute(configQuery, connection, cursor)
+
+    userQuery = """CREATE TABLE IF NOT EXISTS USER_DBT(
+                   USERID SERIAL PRIMARY KEY,
+                   USERFIRSTNAME VARCHAR(40),
+                   USERLASTNAME VARCHAR(40),
+                   USERUSERNAME VARCHAR(40) NOT NULL UNIQUE,
+                   USERPASSWORD VARCHAR(40) NOT NULL,
+                   USEREMAIL VARCHAR(60) NOT NULL UNIQUE,
+                   USERTYPE INTEGER NOT NULL)"""
+
+    DbExecute(userQuery, connection, cursor)
+    DbClose(connection, cursor)
+    CheckDbVersion()
