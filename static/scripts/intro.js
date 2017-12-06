@@ -9,11 +9,6 @@ $(document).ready(function()
 function Scroll()
 {
 	var yPos = window.pageYOffset;
-
-	if(yPos > 250)
-		document.getElementById('underConstruction').classList.remove('firststate');
-	else
-		document.getElementById('underConstruction').classList.add('firststate');
 }
 
 window.addEventListener("scroll", Scroll);

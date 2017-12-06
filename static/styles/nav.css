@@ -43,7 +43,7 @@
 
 .navbar-custom-top a:hover
 {
-	color: #00afdb;
+	color: #8a9a5b;
 	text-decoration: none;
 }
 
@@ -54,37 +54,6 @@
 	border-radius: 100%;
 	margin-right: 8px;
 	cursor: pointer;
-}
-
-/*-------------------- 1.1. Account Notifications --------------------*/
-
-.account-notifications
-{
-	margin-right: 30px;
-	display: inline-block;
-}
-
-.account-notifications img
-{
-	width: 16px;
-	height: 16px;
-}
-
-.badge-notify
-{
-	background: #00afdb;
-	margin-left: -6px;
-	margin-bottom: 20px;
-}
-
-.ntf-friend
-{
-	visibility: hidden;
-}
-
-.ntf-dm
-{
-	visibility: hidden;
 }
 
 /*-------------------- 2. Bottom Navigation Bar --------------------*/
@@ -115,7 +84,7 @@
 
 .navbar-custom-bottom li > a:hover
 {
-	color: #00afdb;
+	color: #8a9a5b;
 	text-decoration: none;
 }
 
@@ -133,7 +102,7 @@
 
 .main-logo:hover, .main-logo:focus
 {
-	color: #00afdb;
+	color: #db6900;
 	text-decoration: none;
 }
 

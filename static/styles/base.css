@@ -19,7 +19,7 @@ a
 h1
 {
 	font-family: 'texgyreheros';
-    color: #39b2dd;
+    color: #db6900;
     font-size: 35px;
 }
 
@@ -114,7 +114,6 @@ img
 {
 	width: 100%;
 	height: 500px;
-	position: fixed;
 }
 
 .banner img

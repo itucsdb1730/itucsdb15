@@ -2,10 +2,10 @@
 
 .flyInText
 {
-	background: #fff;
+	background: #f5f8fa;
 	display: flex;
 	justify-content: center;
-	padding-top: 100px;
+	padding-top: 70px;
 }
 
 .flyInText_ul
@@ -21,7 +21,7 @@
   	font-family: 'Rajdhani';
   	font-weight: 300;
 	font-size: 40pt;
-	color: #292f33;
+	color: #db6900;
 	opacity: 1;
 	transition: all 2.5s ease;
 }

@@ -1,6 +1,6 @@
 <!-- Elif Özer -->
 
-{% extends "basebanner.html" %}
+{% extends "base.html" %}
 
 {% block head %}
 	<script type="text/javascript" src="{{ url_for('static', filename='scripts/intro.js') }}"></script>
@@ -9,11 +9,11 @@
 
 {% block title %}Ticketosaur{% endblock %}
 
-{% block banner %}
-	<img src="../static/images/bannerintro.jpeg">
-{% endblock %}
+{%block bannerpagecontent %}
+	<div class="banner">
+		<img src="../static/images/bannerintro.jpeg" style="margin-top: -20px;">
+	</div>
 
-{%block content %}
 	<div class="flyInText">
 		<ul class="flyInText_ul firststate">
 			<li>W</li>
@@ -41,5 +41,6 @@
 		</ul>
 	</div>
 
-	<img id ="underConstruction" class="flyInImage firststate" style="display: block; margin: auto; padding-top:100px;" src="../static/images/underconstruction.jpg"></img>
+	<p align="center" style="margin-top: 50px; font-size: 14px; color: #8a9a5b;">Created by</p>
+	<p class="navbar-custom-top" align="center" style="font-size: 16px; color: #8a9a5b;">Elif Ozer and Onur Bozova</p>
 {% endblock %}
