@@ -9,8 +9,10 @@ from flask import request
 from elifozer_dbhandler import basehandler
 from elifozer_operations.useroperations import useroperations
 from elifozer_utilities.currentconfig import CurrentConfig
+from elifozer_utilities.commonhelper import IsAuthenticated, GetFullNameSession
 
 app = Flask(__name__)
+app.secret_key = 'secretKey'
 app.register_blueprint(useroperations)
 
 
@@ -31,7 +33,7 @@ def home_page():
     if request.method == 'GET':
         now = datetime.datetime.now()
 
-        return render_template('intro.html', current_time=now.ctime())
+        return render_template('intro.html', current_time=now.ctime(), authenticated = IsAuthenticated(), fullName = GetFullNameSession())
 
 
 if __name__ == '__main__':
