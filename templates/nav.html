@@ -35,11 +35,32 @@
 							{% endif %}
 
 							{% if authenticated %}
-								<div class="account-notifications">
+								<div class="dropdown">
+									<img src="../static/images/iconuser.png" class="dropdown-toggle icon-user" data-toggle="dropdown"></img>
+
+									<ul class="dropdown-menu dropdown-icon-user">
+										<li>
+											<a href="/profile">
+												<p>{{ fullName }}</p>
+												<p>Go to profile</p>
+											</a>
+										</li>
+
+										<div class="dropdown-divider"></div>
+
+										<li>
+											<a href="/home#settings">Settings</a>
+										</li>
+
+										<div class="dropdown-divider"></div>
+
+										<li>
+											<a href="/logout">Log out</a>
+										</li>
+									</ul>
 								</div>
 
-								<div class="dropdown">
-								</div>
+								<a href="/home">Hi {{ fullName.split(' ')[0] }}</a>
 							{% endif %}
 						</nav>
 					</div>

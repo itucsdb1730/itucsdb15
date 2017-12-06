@@ -1,7 +1,7 @@
 import psycopg2 as dbapi2
 from elifozer_utilities.currentconfig import CurrentConfig
 
-dbVersion = 1
+dbVersion = 3
 
 
 def DbConnect():
@@ -53,7 +53,7 @@ def CheckDbVersion():
 
         DbExecute(insertConfigQuery, connection, cursor, ('dbVersion', dbVersion))
 
-        insertAdminQuery = """INSERT INTO USERS_DBT(USERFIRSTNAME, USERLASTNAME, USERUSERNAME, USERPASSWORD, USEREMAIL, USERTYPE) VALUES (%s, %s, %s, %s, %s, %s)"""
+        insertAdminQuery = """INSERT INTO USER_DBT(USERFIRSTNAME, USERLASTNAME, USERUSERNAME, USERPASSWORD, USEREMAIL, USERTYPE) VALUES (%s, %s, %s, %s, %s, %s)"""
 
         DbExecute(insertAdminQuery, connection, cursor, ('admin', 'admin', 'elif', 'adem', 'ozere@itu.edu.tr', 1))
 

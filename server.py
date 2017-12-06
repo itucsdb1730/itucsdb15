@@ -8,12 +8,14 @@ from flask import request
 
 from elifozer_dbhandler import basehandler
 from elifozer_operations.useroperations import useroperations
+from elifozer_operations.useroperationshelper import useroperationshelper
 from elifozer_utilities.currentconfig import CurrentConfig
 from elifozer_utilities.commonhelper import IsAuthenticated, GetFullNameSession
 
 app = Flask(__name__)
 app.secret_key = 'secretKey'
 app.register_blueprint(useroperations)
+app.register_blueprint(useroperationshelper)
 
 
 def get_elephantsql_dsn(vcap_services):
