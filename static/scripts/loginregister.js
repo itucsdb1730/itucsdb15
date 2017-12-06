@@ -115,40 +115,11 @@ function flipLoginCard()
 
 function LoginOperation()
 {
-	$.getJSON('/login',
-	{
-		loginUsernameEmail: $('input[name="loginUsernameEmail"]').val(),
-		loginPassword: $('input[name="loginPassword"]').val()
-	},
-	function(data)
-	{
-		if(data == "")
-			window.location = "/home";
-		else
-			alert(data);
-	});
 
-	return false;
 }
 
 
 function RegisterOperation()
 {
-	$.getJSON('/register',
-	{
-		registerFirstName: $('input[name="registerFirstName"]').val(),
-		registerLastName: $('input[name="registerLastName"]').val(),
-		registerUsername: $('input[name="registerUsername"]').val(),
-		registerEmail: $('input[name="registerEmail"]').val(),
-		registerPassword: $('input[name="registerPassword"]').val()
-	},
-	function(data)
-	{
-		if(data !== "")
-			alert(data);
-		else
-			window.location = "/home";
-	});
 
-	return false;
 }

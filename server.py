@@ -7,9 +7,11 @@ from flask import render_template
 from flask import request
 
 from elifozer_dbhandler import basehandler
+from elifozer_operations.useroperations import useroperations
 from elifozer_utilities.currentconfig import CurrentConfig
 
 app = Flask(__name__)
+app.register_blueprint(useroperations)
 
 
 def get_elephantsql_dsn(vcap_services):
