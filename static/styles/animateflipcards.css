@@ -1,0 +1,149 @@
+/*---- Flip Cards ----*/
+
+/*---- Animation related ----*/
+
+.transition-05s
+{
+	backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transition: transform .5s linear;
+    -webkit-transition: -webkit-transform .5s linear;
+}
+
+.hideSide
+{
+	display: none;
+}
+
+.rotateY-90
+{
+	transform: rotateY(-90deg);
+}
+
+.rotateY90
+{
+	transform: rotateY(90deg);
+}
+
+/*---- Containers ----*/
+
+.card-wrapper
+{
+	margin: 0 auto;
+	display: block;
+	width: 1100px;
+}
+
+.table.card-table
+{
+	display: table;
+	height: 100%;
+	width: 100%;
+	background: transparent;
+}
+
+.cell.card-cell
+{
+	display: table-cell;
+	vertical-align: middle;
+	height: 100%;
+}
+
+.cell.card-cell > h2, h3
+{
+	color: #fff;
+}
+
+.card
+{
+	width: 450px;
+	height: 650px;
+	perspective-origin: 225px;
+	-webkit-perspective-origin: 225px;
+	perspective: 450px;
+	-webkit-perspective: 450px;
+}
+
+.login-area
+{
+	width: 100%;
+	height: 100%;
+	background-color: #00afdb;
+}
+
+.login-box
+{
+	width: 100%;
+	height: 100%;
+	background-color: #00afdb;
+}
+
+.register-area
+{
+	width: 100%;
+	height: 100%;
+	background-color: #00afdb;
+}
+
+.register-box
+{
+	width: 100%;
+	height: 100%;
+	background-color: #00afdb;
+}
+
+.box
+{
+	text-align: center;
+	height: 100%;
+	padding-right: 60px;
+	padding-left: 60px;
+}
+
+/*---- Input ----*/
+
+.text-field-box
+{
+    height: 48px;
+    margin: 0 auto 15px;
+    background-color: #00afdb;
+    color: #fff;
+    position: relative;
+}
+
+.text-field
+{
+	width: 100%;
+    height: 100%;
+    padding: 0 9px 0 34px;
+    background-color: #00afdb;
+    color: #fff;
+    outline: 0!important;
+    font-size: .9em;
+    margin-top: 2px;
+    border: 1px solid #fff;
+}
+
+::-webkit-input-placeholder
+{ /* WebKit, Blink, Edge */
+    color: #fff;
+    opacity: 0.6;
+}
+
+:-moz-placeholder
+{ /* Mozilla Firefox 4 to 18 */
+   color:    #fff;
+   opacity:  0.6;
+}
+
+::-moz-placeholder
+{ /* Mozilla Firefox 19+ */
+   color:    #fff;
+   opacity:  0.6;
+}
+
+:-ms-input-placeholder
+{ /* Internet Explorer 10-11 */
+   color:    #fff;
+   opacity: 0.6;
+}

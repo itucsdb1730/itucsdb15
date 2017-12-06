@@ -1,0 +1,111 @@
+<!-- Elif Özer -->
+
+{% extends "base.html" %}
+
+{% block head %}
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/animateflipcards.css') }}" />
+	<script type="text/javascript" src="{{ url_for('static', filename='scripts/loginregister.js') }}"></script>
+
+	<style>
+		body
+		{
+			background: #fff;
+			background-image: url('../static/images/loginregister.jpg');
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			background-position: center bottom;
+		}
+	</style>
+{% endblock %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<section class="wrapper card-wrapper">
+	<div class="table">
+		<div class="cell" style="padding-top: 40px;">
+			<div class="clearfix">
+				<div class="card pull-left">
+					<section class="login-area">
+						<div class="box">
+							<div class="table card-table">
+								<div class="cell card-cell">
+									<h2>Your Ticketosaur Account</h2>
+
+									<h3>Sign in with your username</h3>
+
+									<h2 style="font-size: 16px;">or</h2>
+
+									<h3>Sign in with your e-mail</h3>
+
+									<div class="text-field-box" style="margin-top: 50px;">
+										<input type="text" class="text-field" placeholder="Username or e-mail" name="loginUsernameEmail"></input>
+									</div>
+
+									<div class="text-field-box">
+										<input type="text" class="text-field" placeholder="Password" name="loginPassword"></input>
+									</div>
+
+									<button type="button" class="card-area-button" style="margin-top: 30px;" onclick="return LoginOperation();">Login</button>
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<section class="login-box">
+						<div class="table card-table">
+							<div class="cell card-cell">
+								<button type="button" class="card-box-button" onclick="flipLoginCard()">Login</button>
+							</div>
+						</div>
+					</section>
+				</div>
+
+				<div class="card pull-right">
+					<section class="register-area">
+						<div class="box">
+							<div class="table card-table">
+								<div class="cell card-cell">
+									<h2>Create Your Ticketosaur Account</h2>
+
+									<h3>Register today for best ticket deals</h3>
+
+									<div class="text-field-box" style="margin-top: 50px;">
+										<input type="text" class="text-field" placeholder="First name" name="registerFirstName"></input>
+									</div>
+
+									<div class="text-field-box">
+										<input type="text" class="text-field" placeholder="Last name" name="registerLastName"></input>
+									</div>
+
+									<div class="text-field-box">
+										<input type="text" class="text-field" placeholder="Username" name="registerUsername"></input>
+									</div>
+
+									<div class="text-field-box">
+										<input type="text" class="text-field" placeholder="E-mail" name="registerEmail"></input>
+									</div>
+
+									<div class="text-field-box">
+										<input type="text" class="text-field" placeholder="Password" name="registerPassword"></input>
+									</div>
+
+									<button type="button" class="card-area-button" style="margin-top: 30px;" onclick="return RegisterOperation();">Register</button>
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<section class="register-box">
+						<div class="table card-table">
+							<div class="cell card-cell">
+								<button type="button" class="card-box-button" onclick="flipRegisterCard()">Register</button>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}
