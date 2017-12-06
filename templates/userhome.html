@@ -3,9 +3,44 @@
 {% extends "nav.html" %}
 
 {% block head %}
+	<script type="text/javascript" src="{{ url_for('static', filename='scripts/userhome.js') }}"></script>
 {% endblock %}
 
 {% block title %}Home{% endblock %}
 
-{% block content %}
+{% block pagecontent %}
+<div style="width: 250px;">
+	<div class="firstNameDiv" style="margin: 20px 0 0 20px;">
+		<h3 style="color: #8a9a5b; font-weight: bold;">First Name:</h3>
+		<input type="text" class="form-control" placeholder="First name" name="usersettings_firstName" value="{{ currentUser.firstName }}"></input>
+	</div>
+
+	<div class="lastNameDiv" style="margin: 20px 0 0 20px;">
+		<h3 style="color: #8a9a5b; font-weight: bold;">Last Name:</h3>
+		<input type="text" class="form-control" placeholder="Last name" name="usersettings_lastName" value="{{ currentUser.lastName }}"></input>
+	</div>
+
+	<div class="usernameDiv" style="margin: 20px 0 0 20px;">
+		<h3 style="color: #8a9a5b; font-weight: bold;">Username:</h3>
+		<input type="text" class="form-control" placeholder="Username" name="usersettings_username" value="{{ currentUser.username }}"></input>
+	</div>
+
+	<div class="emailDiv" style="margin: 20px 0 0 20px;">
+		<h3 style="color: #8a9a5b; font-weight: bold;">E-mail:</h3>
+		<input type="text" class="form-control" placeholder="E-mail" name="usersettings_email" value="{{ currentUser.email }}"></input>
+	</div>
+
+	<div class="passwordDiv" style="margin: 20px 0 0 20px;">
+		<h3 style="color: #8a9a5b; font-weight: bold;">Password:</h3>
+		<input type="text" class="form-control" placeholder="Password" name="usersettings_password" value="{{ currentUser.password }}"></input>
+	</div>
+
+	<button type="button" class="button-1" style="margin: 20px 0 20px 20px;" onclick="return UpdateUser();">Update Settings</button>
+
+	<div class="row" style="margin-top: 35px;"></div>
+
+	<div class="panel-body row" style= "margin: 0 auto;">
+		<button type="button" class="button-1" onclick="return DeleteUser();">Delete my account</button>
+	</div>
+</div>
 {% endblock %}

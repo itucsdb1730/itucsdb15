@@ -83,3 +83,66 @@ def Register():
     SetUsernameSession(user.username)
 
     return jsonify("")
+
+
+@useroperationshelper.route('/updateuser', methods=['GET', 'POST'])
+def UpdateUser():
+    if not IsAuthenticated():
+        return redirect('/')
+
+    try:
+        user = User()
+
+        user.firstName = request.args.get('usersettings_firstName', "", type=STRING)
+        user.lastName = request.args.get('usersettings_lastName', "", type=STRING)
+        user.username = request.args.get('usersettings_username', "", type=STRING)
+        user.email = request.args.get('usersettings_email', "", type=STRING)
+        user.password = request.args.get('usersettings_password', "", type=STRING)
+
+        user.userId = GetUserIdSession()
+
+        validationMessage = user.IsValid()
+
+        if validationMessage != "":
+            return jsonify(validationMessage)
+
+        filterParameter = FilterParameter("USERUSERNAME", "LIKE", user.username)
+        filterExpression = FilterExpression()
+        filterExpression.AddParameter(filterParameter)
+        users = userhandler.Get(filterExpression)
+
+        if len(users) > 0 and users[0].userId != GetUserIdSession():
+            return jsonify("This username is already taken")
+
+        filterParameter = FilterParameter("USEREMAIL", "LIKE", user.email)
+        filterExpression = FilterExpression()
+        filterExpression.AddParameter(filterParameter)
+        users = userhandler.Get(filterExpression)
+
+        if len(users) > 0 and users[0].userId != GetUserIdSession():
+            return jsonify("This e-mail address is already taken")
+
+        userhandler.Update(user)
+        SetUserIdSession(user.userId)
+        SetFullNameSession(user.firstName + " " + user.lastName)
+        SetUsernameSession(user.username)
+
+        return jsonify("")
+    except:
+        return jsonify("Unexpected error occured")
+
+
+@useroperationshelper.route('/deleteuser', methods=['GET', 'POST'])
+def DeleteUser():
+    if not IsAuthenticated():
+        return redirect('/')
+
+    try:
+        userhandler.Delete(GetUserIdSession())
+        SetUserIdSession(-1)
+        SetFullNameSession("")
+        SetUsernameSession("")
+
+        return jsonify(True)
+    except:
+        return jsonify(False)

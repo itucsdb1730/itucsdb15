@@ -26,4 +26,6 @@ def Home():
     if not IsAuthenticated():
         return redirect('/')
 
-    return render_template('userhome.html', currentUser=User(), authenticated = IsAuthenticated(), fullName = GetFullNameSession())
+    user = userhandler.GetByID(GetUserIdSession())
+
+    return render_template('userhome.html', currentUser=user, authenticated = IsAuthenticated(), fullName = GetFullNameSession())
