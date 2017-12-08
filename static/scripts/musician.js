@@ -14,11 +14,10 @@ function AddMusician()
 	function(data)
 	{
 		if(data == "")
-			alert("Successfully added new musician");
+			CustomAlert("Successfully added new musician");
 		else
 		{
-			alert(data);
-			location.reload();
+			CustomAlert(data);
 		}
 	});
 

@@ -1,6 +1,6 @@
 <!-- Elif Özer -->
 
-{% extends "nav.html" %}
+{% extends "base.html" %}
 
 {% block head %}
 	<script type="text/javascript" src="{{ url_for('static', filename='scripts/musician.js') }}"></script>
@@ -8,10 +8,10 @@
 
 {% block title %}Musician{% endblock %}
 
-{% block pagecontent %}
+{% block content %}
 
 {% if admin %}
-<section id="musicianAddSection" style="padding:20px 0 20px 0; width: 30%; margin: 0 auto;">
+<section id="musicianAddSection" style="padding:20px 0 20px 0; width: 40%; margin: 0 auto;">
 	<div class="panel panel-default">
 		<div class="panel-heading" style="background:#8a9a5b; color: #fff;">Add a new musician</div>
 

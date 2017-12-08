@@ -58,8 +58,8 @@ def Get(filterExpression = None):
 def Insert(newMusician):
     connection, cursor = basehandler.DbConnect()
 
-    myQuery = """INSERT INTO MUSICIAN_DBT(MUSICIANNAME, MUSICIANGENRE, MUSICIANESTYEAR, MUISICIANIMGURL, MUSICIANDESC)
-                 VALUES (%s, %s, %s) RETURNING MUSICIANID;"""
+    myQuery = """INSERT INTO MUSICIAN_DBT(MUSICIANNAME, MUSICIANGENRE, MUSICIANESTYEAR, MUSICIANIMGURL, MUSICIANDESC)
+                 VALUES (%s, %s, %s, %s, %s) RETURNING MUSICIANID;"""
 
     cursor = basehandler.DbExecute(myQuery, connection, cursor, (newMusician.name, newMusician.genre, newMusician.establishYear, newMusician.imgUrl, newMusician.description))
 
@@ -76,7 +76,7 @@ def Update(currentMusician):
     myQuery = """UPDATE MUSICIAN_DBT SET MUSICIANNAME = %s,
                                          MUSICIANGENRE = %s,
                                          MUSICIANESTYEAR = %s,
-                                         MUISICIANIMGURL = %s,
+                                         MUSICIANIMGURL = %s,
                                          MUSICIANDESC = %s
                  WHERE MUSICIANID = %s"""
 

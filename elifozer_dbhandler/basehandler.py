@@ -1,7 +1,7 @@
 import psycopg2 as dbapi2
 from elifozer_utilities.currentconfig import CurrentConfig
 
-dbVersion = 4
+dbVersion = 6
 
 
 def DbConnect():
@@ -102,9 +102,9 @@ def DbInitialize():
 
     musicianQuery = """CREATE TABLE IF NOT EXISTS MUSICIAN_DBT(
                        MUSICIANID SERIAL PRIMARY KEY,
-                       MUSICIANNAME VARCHAR(40),
+                       MUSICIANNAME VARCHAR(40) NOT NULL,
                        MUSICIANGENRE VARCHAR(40),
-                       MUSICIANESTYEAR TIMESTAMP DEFAULT LOCALTIMESTAMP,
+                       MUSICIANESTYEAR VARCHAR(4),
                        MUSICIANIMGURL VARCHAR(200),
                        MUSICIANDESC VARCHAR(300))"""
 
