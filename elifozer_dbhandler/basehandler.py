@@ -1,7 +1,7 @@
 import psycopg2 as dbapi2
 from elifozer_utilities.currentconfig import CurrentConfig
 
-dbVersion = 3
+dbVersion = 4
 
 
 def DbConnect():
@@ -71,7 +71,8 @@ def CheckDbVersion():
 def DropTable():
     connection, cursor = DbConnect()
 
-    dropQuery =  """DROP TABLE IF EXISTS USERS_DBT;
+    dropQuery =  """DROP TABLE IF EXISTS MUSICIAN_DBT;
+                    DROP TABLE IF EXISTS USERS_DBT;
                     DROP TABLE IF EXISTS CONFIG_DBT;"""
 
     DbExecute(dropQuery, connection, cursor)
@@ -98,5 +99,13 @@ def DbInitialize():
                    USERTYPE INTEGER NOT NULL)"""
 
     DbExecute(userQuery, connection, cursor)
+
+    musicianQuery = """CREATE TABLE IF NOT EXISTS MUSICIAN_DBT(
+                       MUSICIANID SERIAL PRIMARY KEY,
+                       MUSICIANNAME VARCHAR(40),
+                       MUSICIANGENRE VARCHAR(40),
+                       MUSICIANESTYEAR TIMESTAMP DEFAULT LOCALTIMESTAMP)"""
+
+    DbExecute(musicianQuery, connection, cursor)
     DbClose(connection, cursor)
     CheckDbVersion()
