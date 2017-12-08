@@ -4,3 +4,5 @@ class Musician:
         self.name = ""
         self.genre = ""
         self.establishYear = ""
+        self.imgUrl = ""
+        self.description = ""

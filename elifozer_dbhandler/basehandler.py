@@ -104,7 +104,9 @@ def DbInitialize():
                        MUSICIANID SERIAL PRIMARY KEY,
                        MUSICIANNAME VARCHAR(40),
                        MUSICIANGENRE VARCHAR(40),
-                       MUSICIANESTYEAR TIMESTAMP DEFAULT LOCALTIMESTAMP)"""
+                       MUSICIANESTYEAR TIMESTAMP DEFAULT LOCALTIMESTAMP,
+                       MUSICIANIMGURL VARCHAR(200),
+                       MUSICIANDESC VARCHAR(300))"""
 
     DbExecute(musicianQuery, connection, cursor)
     DbClose(connection, cursor)

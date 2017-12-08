@@ -45,6 +45,8 @@ def Get(filterExpression = None):
         tempMusician.name = musician[1]
         tempMusician.genre = musician[2]
         tempMusician.establishYear = musician[3]
+        tempMusician.imgUrl = musician[4]
+        tempMusician.description = musician[5]
 
         musicianList.append(tempMusician)
 
@@ -56,10 +58,10 @@ def Get(filterExpression = None):
 def Insert(newMusician):
     connection, cursor = basehandler.DbConnect()
 
-    myQuery = """INSERT INTO MUSICIAN_DBT(MUSICIANNAME, MUSICIANGENRE, MUSICIANESTYEAR)
+    myQuery = """INSERT INTO MUSICIAN_DBT(MUSICIANNAME, MUSICIANGENRE, MUSICIANESTYEAR, MUISICIANIMGURL, MUSICIANDESC)
                  VALUES (%s, %s, %s) RETURNING MUSICIANID;"""
 
-    cursor = basehandler.DbExecute(myQuery, connection, cursor, (newMusician.name, newMusician.genre, newMusician.establishYear))
+    cursor = basehandler.DbExecute(myQuery, connection, cursor, (newMusician.name, newMusician.genre, newMusician.establishYear, newMusician.imgUrl, newMusician.description))
 
     newMusician.musicianId = cursor.fetchone()[0]
 
@@ -74,9 +76,11 @@ def Update(currentMusician):
     myQuery = """UPDATE MUSICIAN_DBT SET MUSICIANNAME = %s,
                                          MUSICIANGENRE = %s,
                                          MUSICIANESTYEAR = %s,
+                                         MUISICIANIMGURL = %s,
+                                         MUSICIANDESC = %s
                  WHERE MUSICIANID = %s"""
 
-    cursor = basehandler.DbExecute(myQuery, connection, cursor, (currentMusician.name, currentMusician.genre, currentMusician.establishYear))
+    cursor = basehandler.DbExecute(myQuery, connection, cursor, (currentMusician.name, currentMusician.genre, currentMusician.establishYear, currentMusician.imgUrl, currentMusician.description))
 
     basehandler.DbClose(connection, cursor)
 
