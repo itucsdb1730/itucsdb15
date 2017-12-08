@@ -65,5 +65,9 @@ def UserToJSON(self):
     return {'userId': self.userId, 'firstName': self.firstName, 'lastName': self.lastName, 'username': self.username, 'email': self.email}
 
 
+def MusicianToJSON(self):
+    return {'musicianId': self.musicianId, 'name': self.name, 'genre': self.genre, 'establishYear': self.establishYear, 'imgUrl': self.imgUrl, 'description': self.description}
+
+
 def StringSplit(self):
     return [p.replace("\x00", " ") for p in re.sub('".+?"', lambda m: m.group(0).replace(" ", "\x00"), self).split()]

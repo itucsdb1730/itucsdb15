@@ -68,20 +68,11 @@
 	</div>
 </section>
 
-<section id="musicianListSection">
-	{% for m in musicianList|sort(attribute="name", reverse=True) %}
-	<div class="media">
-		<div class="media-left">
-	    	<a href="#">
-	      		<img class="media-object" src="..." alt="...">
-	    	</a>
-	  	</div>
-
-	  	<div class="media-body">
-	    	<h4 class="media-heading">Media heading</h4>
-	    	Elif elif elif
-	  	</div>
-	</div>
-	{% endfor %}
+<section id="musicianListSection" style="width: 600px; margin-top: 40px;">
+	<ul class="list-group">
+		{% for m in musicianList|sort(attribute="name") %}
+		<li class="list-group-item">{{ m.name }}</li>
+		{% endfor %}
+	</ul>
 </section>
 {% endblock %}

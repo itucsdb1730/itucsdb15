@@ -47,3 +47,20 @@ def AddMusician():
     musicianhandler.Insert(musician)
 
     return jsonify("")
+
+
+@musicianoperationshelper.route('/searchmusician', methods=['GET', 'POST'])
+def SearchMusicianOperation():
+    searchList = []
+
+    musicianName = request.args.get('musicianName', "", type=STRING)
+
+    filterParameter = FilterParameter("MUSICIANNAME", "LIKE", '%' + musicianName + '%')
+    filterExpression = FilterExpression()
+    filterExpression.AddParameter(filterParameter)
+
+    searchList = musicianhandler.Get(filterExpression)
+
+    serializeString = [MusicianToJSON(s) for s in searchList]
+
+    return jsonify(serializeString)

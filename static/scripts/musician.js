@@ -14,7 +14,7 @@ function AddMusician()
 	function(data)
 	{
 		if(data == "")
-			CustomAlert("Successfully added new musician");
+			location.reload();
 		else
 		{
 			CustomAlert(data);

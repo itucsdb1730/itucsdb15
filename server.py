@@ -6,9 +6,10 @@ from flask import Flask
 from flask import render_template
 from flask import request
 
-from elifozer_dbhandler import basehandler
+from elifozer_dbhandler import basehandler, musicianhandler
 from elifozer_operations.useroperations import useroperations
 from elifozer_operations.useroperationshelper import useroperationshelper
+from elifozer_operations.musicianoperations import musicianoperations
 from elifozer_operations.musicianoperationshelper import musicianoperationshelper
 from elifozer_utilities.currentconfig import CurrentConfig
 from elifozer_utilities.commonhelper import IsAuthenticated, GetFullNameSession, IsAdmin
@@ -17,6 +18,7 @@ app = Flask(__name__)
 app.secret_key = 'secretKey'
 app.register_blueprint(useroperations)
 app.register_blueprint(useroperationshelper)
+app.register_blueprint(musicianoperations)
 app.register_blueprint(musicianoperationshelper)
 
 
@@ -38,11 +40,6 @@ def home_page():
         now = datetime.datetime.now()
 
         return render_template('intro.html', current_time=now.ctime(), authenticated = IsAuthenticated(), fullName = GetFullNameSession())
-
-
-@app.route('/musicians')
-def musicians():
-    return render_template('musicians.html', authenticated = IsAuthenticated(), admin = IsAdmin(), fullName = GetFullNameSession())
 
 
 if __name__ == '__main__':
