@@ -26,7 +26,12 @@ def AddMusician():
     musician.name = request.args.get('musicianadd_musicianName', "", type=STRING)
     musician.genre = request.args.get('musicianadd_musicianGenre', "", type=STRING)
     musician.establishYear = request.args.get('musicianadd_musicianEstYear', "", type=STRING)
-    musician.imgUrl = request.args.get('musicianadd_musicianImgUrl', "", type=STRING)
+
+    imgUrl = request.args.get('musicianadd_musicianImgUrl', "", type=STRING)
+
+    if imgUrl != "":
+        musician.imgUrl = imgUrl
+
     musician.description = request.args.get('musicianadd_musicianDesc', "", type=STRING)
 
     filterParameter = FilterParameter("MUSICIANNAME", "LIKE", musician.name)

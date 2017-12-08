@@ -4,5 +4,5 @@ class Musician:
         self.name = ""
         self.genre = ""
         self.establishYear = ""
-        self.imgUrl = ""
+        self.imgUrl = "../static/images/defaultmusician.png"
         self.description = ""

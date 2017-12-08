@@ -68,10 +68,24 @@
 	</div>
 </section>
 
-<section id="musicianListSection" style="width: 600px; margin-top: 40px;">
+<section id="musicianListSection" style="margin-top: 40px;">
 	<ul class="list-group">
 		{% for m in musicianList|sort(attribute="name") %}
-		<li class="list-group-item">{{ m.name }}</li>
+		<li class="list-group-item" {% if not authenticated %} style="width: 600px;" {% endif %} {% if authenticated %} style="width: 600px; cursor: pointer;" data-toggle="collapse" data-target="#{{ m.name }}" {% endif %}>{{ m.name }}</li>
+
+		<div class="collapse" id="{{ m.name }}">
+			<div class="media list-group-item" style="margin: 15px 0 15px 0; margin-left: 100px; width: 600px; background: #eaeded;">
+				<div class="media-left">
+					<img class="media-object" src="{{ m.imgUrl }}" height="64" width="64">
+				</div>
+
+			  	<div class="media-body">
+			    	<p class="media-heading"><strong>Genre: </strong>{{ m.genre }}</p>
+					<p class="media-heading"><strong>Establish Year: </strong>{{ m.establishYear }}</p>
+			    	<p style="margin-top: 26px; word-break: break-all;">{{ m.description }}sdasdsdasdasdasdsdasdsdasdasdasdsdasdsdasdasdasdsdasdsdasdasdasdsdasdsdasdasdasdsdasdsdasdasdasdsdasdsdasdasdasdsdasdsdasdasdasd</p>
+			  	</div>
+			</div>
+		</div>
 		{% endfor %}
 	</ul>
 </section>
