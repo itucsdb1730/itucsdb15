@@ -71,9 +71,9 @@
 <section id="musicianListSection" style="margin-top: 40px;">
 	<ul class="list-group">
 		{% for m in musicianList|sort(attribute="name") %}
-		<li class="list-group-item" {% if not authenticated %} style="width: 600px;" {% endif %} {% if authenticated %} style="width: 600px; cursor: pointer;" data-toggle="collapse" data-target="#{{ m.name }}" {% endif %}>{{ m.name }}</li>
+		<li class="list-group-item" {% if not authenticated %} style="width: 600px;" {% endif %} {% if authenticated %} style="width: 600px; cursor: pointer;" data-toggle="collapse" data-target='#{{ loop.index }}' {% endif %}>{{ m.name }}</li>
 
-		<div class="collapse" id="{{ m.name }}">
+		<div class="collapse" id={{ loop.index }}>
 			<div class="media list-group-item" style="margin: 15px 0 15px 0; margin-left: 100px; width: 600px; background: #eaeded;">
 				<div class="media-left">
 					<img class="media-object" src="{{ m.imgUrl }}" height="64" width="64">
