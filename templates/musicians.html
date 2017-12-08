@@ -6,7 +6,7 @@
 	<script type="text/javascript" src="{{ url_for('static', filename='scripts/musician.js') }}"></script>
 {% endblock %}
 
-{% block title %}Musician{% endblock %}
+{% block title %}Musicians{% endblock %}
 
 {% block content %}
 
@@ -42,7 +42,7 @@
 				<p style="color: #8a9a5b; font-weight: bold;">Description:</p>
 
 				<div class="form-group">
-					<textarea id="musicianDescripton" class="form-control" rows="4" maxlength="300" name="musicianadd_musicianDesc" placeholder="Add a description..."></textarea>
+					<textarea class="form-control" rows="4" maxlength="300" id="musicianadd_musicianDesc" placeholder="Add a description..."></textarea>
 				</div>
 			</div>
 		</div>

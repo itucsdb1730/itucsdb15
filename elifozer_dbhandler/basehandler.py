@@ -1,7 +1,7 @@
 import psycopg2 as dbapi2
 from elifozer_utilities.currentconfig import CurrentConfig
 
-dbVersion = 7
+dbVersion = 8
 
 
 def DbConnect():
@@ -104,7 +104,7 @@ def DbInitialize():
                        MUSICIANID SERIAL PRIMARY KEY,
                        MUSICIANNAME VARCHAR(40) NOT NULL,
                        MUSICIANGENRE VARCHAR(40),
-                       MUSICIANESTYEAR VARCHAR(4),
+                       MUSICIANESTYEAR VARCHAR(4) NOT NULL,
                        MUSICIANIMGURL VARCHAR(200),
                        MUSICIANDESC VARCHAR(300))"""
 
