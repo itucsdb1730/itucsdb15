@@ -14,12 +14,9 @@ function UpdateUser()
 	function(data)
 	{
 		if(data == "")
-			alert("Successfully updated");
+			CustomAlert("Successfully updated user settings");
 		else
-		{
-			alert(data);
-			location.reload();
-		}
+			CustomAlert(data);
 	});
 
 	return false;
@@ -28,21 +25,15 @@ function UpdateUser()
 
 function DeleteUser()
 {
-	if(!confirm("Are you sure to delete your account?"))
-		return;
-
 	$.getJSON('/deleteuser',
 	{
 	},
 	function(data)
 	{
 		if(data == true)
-		{
-			alert("Permanently deleted your account");
 			window.location = "/";
-		}
 		else
-			alert("An error occured while deleting");
+			CustomAlert("An error occured while deleting the account");
 	});
 
 	return false;

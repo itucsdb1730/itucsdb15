@@ -125,7 +125,12 @@ function LoginOperation()
 		if(data == "")
 			window.location = "/home";
 		else
-			alert(data);
+		{
+			var modal = $('#userWarningModal');
+
+			modal.find('#userWarningModalMsg').text(data);
+			$('#userWarningModal').modal('show');
+		}
 	});
 
 	return false;
@@ -145,7 +150,12 @@ function RegisterOperation()
 	function(data)
 	{
 		if(data !== "")
-			alert(data);
+		{
+			var modal = $('#userWarningModal');
+
+			modal.find('#userWarningModalMsg').text(data);
+			$('#userWarningModal').modal('show');
+		}
 		else
 			window.location = "/home";
 	});

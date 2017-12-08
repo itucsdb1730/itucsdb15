@@ -1,0 +1,87 @@
+<!-- Elif Özer -->
+
+{% extends "nav.html" %}
+
+{% block head %}
+	<script type="text/javascript" src="{{ url_for('static', filename='scripts/musician.js') }}"></script>
+{% endblock %}
+
+{% block title %}Musician{% endblock %}
+
+{% block pagecontent %}
+
+{% if admin %}
+<section id="musicianAddSection" style="padding:20px 0 20px 0; width: 30%; margin: 0 auto;">
+	<div class="panel panel-default">
+		<div class="panel-heading" style="background:#8a9a5b; color: #fff;">Add a new musician</div>
+
+		<div style="width: 300px;">
+			<div class="musicianNameDiv" style="margin: 20px 0 0 20px;">
+				<p style="color: #8a9a5b; font-weight: bold;">Musician Name:</p>
+				<input type="text" class="form-control" placeholder="Musician Name" name="musicianadd_musicianName"></input>
+			</div>
+
+			<div class="musicianGenreDiv" style="margin: 20px 0 0 20px;">
+				<p style="color: #8a9a5b; font-weight: bold;">Musician Genre:</p>
+				<input type="text" class="form-control" placeholder="Musician Genre" name="musicianadd_musicianGenre"></input>
+			</div>
+
+			<div class="musicianEstYearDiv" style="margin: 20px 0 0 20px;">
+				<p style="color: #8a9a5b; font-weight: bold;">Establish year:</p>
+				<input type="text" class="form-control" placeholder="Establish Year" name="musicianadd_musicianEstYear"></input>
+			</div>
+
+			<div class="musicianImgUrlDiv" style="margin: 20px 0 0 20px;">
+				<p style="color: #8a9a5b; font-weight: bold;">Image URL:</p>
+				<input type="text" class="form-control" placeholder="Image URL" name="musicianadd_musicianImgUrl"></input>
+			</div>
+		</div>
+
+		<div>
+			<div class="musicianImgUrlDiv" style="margin: 20px 20px 0 20px;">
+				<p style="color: #8a9a5b; font-weight: bold;">Description:</p>
+
+				<div class="form-group">
+					<textarea id="musicianDescripton" class="form-control" rows="4" maxlength="300" name="musicianadd_musicianDesc" placeholder="Add a description..."></textarea>
+				</div>
+			</div>
+		</div>
+
+		<div class="panel-body row" style= "margin: 0 auto;">
+			<button type="button" class="button-1" onclick="return AddMusician();">Add</button>
+		</div>
+	</div>
+</section>
+{% endif %}
+
+<section id="musicianAddSection" style="padding:20px 0 20px 0; margin: 0 auto; width: 40%;">
+	<div class="row">
+		<div>
+	    	<div class="input-group">
+	      		<input type="text" class="form-control" placeholder="Search for musician...">
+
+	      		<span class="input-group-btn">
+	        		<button class="btn btn-default" type="button" style="color:#4f7942;">Search</button>
+	      		</span>
+	    	</div>
+	  	</div>
+	</div>
+</section>
+
+<section id="musicianListSection">
+	{% for m in musicianList|sort(attribute="name", reverse=True) %}
+	<div class="media">
+		<div class="media-left">
+	    	<a href="#">
+	      		<img class="media-object" src="..." alt="...">
+	    	</a>
+	  	</div>
+
+	  	<div class="media-body">
+	    	<h4 class="media-heading">Media heading</h4>
+	    	Elif elif elif
+	  	</div>
+	</div>
+	{% endfor %}
+</section>
+{% endblock %}

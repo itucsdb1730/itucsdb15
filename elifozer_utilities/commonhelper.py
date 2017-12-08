@@ -1,6 +1,9 @@
 import re
 from flask import session
 
+from elifozer_dbmodels.userdbo import User
+from elifozer_dbhandler import userhandler
+
 
 def IsAuthenticated():
     if 'userId' not in session:
@@ -11,6 +14,19 @@ def IsAuthenticated():
 
     return True;
 
+def IsAdmin():
+    if 'userId' not in session:
+        return False;
+
+    if session['userId'] == -1:
+        return False;
+
+    user = userhandler.GetByID(GetUserIdSession())
+
+    if(user.userType == 1):
+        return True
+
+    return False
 
 def SetUserIdSession(userId):
     session['userId'] = userId
