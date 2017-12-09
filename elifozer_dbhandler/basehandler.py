@@ -1,7 +1,7 @@
 import psycopg2 as dbapi2
 from elifozer_utilities.currentconfig import CurrentConfig
 
-dbVersion = 21
+dbVersion = 26
 
 
 def DbConnect():
@@ -55,7 +55,9 @@ def CheckDbVersion():
 
         insertAdminQuery = """INSERT INTO USER_DBT(USERFIRSTNAME, USERLASTNAME, USERUSERNAME, USERPASSWORD, USEREMAIL, USERTYPE) VALUES (%s, %s, %s, %s, %s, %s)"""
 
-        DbExecute(insertAdminQuery, connection, cursor, ('admin', 'admin', 'elif', 'adem', 'elif@elif.com', 1))
+        DbExecute(insertAdminQuery, connection, cursor, ('admin1', 'admin1', 'elif', 'elif', 'elif@elif.com', 1))
+        DbExecute(insertAdminQuery, connection, cursor, ('admin2', 'admin2', 'adem', 'adem', 'adem@adem.com', 1))
+        DbExecute(insertAdminQuery, connection, cursor, ('admin3', 'admin3', 'egemen', 'egemen', 'egemen@egemen.com', 1))
 
         return
     else:
@@ -117,6 +119,7 @@ def DbInitialize():
     newsQuery = """CREATE TABLE IF NOT EXISTS NEWS_DBT(
                    NEWSID SERIAL PRIMARY KEY,
                    NEWSTITLE VARCHAR(200) NOT NULL,
+                   NEWSMUSICIANID INTEGER REFERENCES MUSICIAN_DBT (MUSICIANID) ON DELETE CASCADE ON UPDATE CASCADE,
                    NEWSCONTENT VARCHAR(400) NOT NULL,
                    NEWSIMGURL VARCHAR(200),
                    CREATEDBY INTEGER REFERENCES USER_DBT (USERID) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -124,6 +127,13 @@ def DbInitialize():
                    UPDATEDATE TIMESTAMP DEFAULT LOCALTIMESTAMP)"""
 
     DbExecute(newsQuery, connection, cursor)
+
+    newsViewQuery = """CREATE VIEW NEWSVIEW AS
+                            SELECT N.*, U.USERUSERNAME AS CREATORNAME, M.MUSICIANNAME FROM NEWS_DBT N
+                                      INNER JOIN USER_DBT U ON N.CREATEDBY = U.USERID
+                                      INNER JOIN MUSICIAN_DBT M ON N.NEWSMUSICIANID = M.MUSICIANID"""
+
+    DbExecute(newsViewQuery, connection, cursor)
 
     concert_areaQuery = """CREATE TABLE IF NOT EXISTS CONCERT_AREA_DBT(
                            CONCERT_AREAID SERIAL PRIMARY KEY,

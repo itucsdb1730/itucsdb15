@@ -3,6 +3,7 @@ function AddNews()
 	$.getJSON('/addnews',
 	{
 		addnews_title: document.getElementById("addnews_title").value,
+		addnews_musician: document.getElementById("addnews_musician").value,
 		addnews_imgUrl: document.getElementById("addnews_imgUrl").value,
 		addnews_content: $("#addnews_content").val()
 	},

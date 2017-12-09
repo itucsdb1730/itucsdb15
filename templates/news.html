@@ -17,6 +17,22 @@
 </section>
 {% endif %}
 
+{% if authenticated %}
+<section id="newsSearchSection" style="padding:20px 0 20px 0; margin: 0 auto; width: 40%;">
+	<div class="row">
+		<div>
+	    	<div class="input-group">
+	      		<input name="searchBy" type="text" class="form-control" placeholder="Enter a musician / band name...">
+
+	      		<span class="input-group-btn">
+	        		<button class="btn btn-default" type="button" style="color:#4f7942;" onclick="return SearchMusician();">Search</button>
+	      		</span>
+	    	</div>
+	  	</div>
+	</div>
+</section>
+{% endif %}
+
 <section id="newsSection" style="margin-top: 20px; height: 500px;" class="row">
 	{% for n in newsList|sort(attribute="createDate", reverse=True) %}
 	<div class="col-xs-6 col-lg-4" style="padding-right: 0px; height: 500px;">
@@ -61,6 +77,11 @@
 						<div style="margin: 20px 0 0 20px;">
 							<p style="color: #8a9a5b; font-weight: bold;">Title:</p>
 							<input type="text" class="form-control" id="addnews_title"></input>
+						</div>
+
+						<div style="margin: 20px 0 0 20px;">
+							<p style="color: #8a9a5b; font-weight: bold;">Musician:</p>
+							<input type="text" class="form-control" id="addnews_musician"></input>
 						</div>
 
 						<div style="margin: 20px 0 0 20px;">

@@ -32,11 +32,12 @@ def Get(filterExpression = None):
 
         tempNews.newsId = news[0]
         tempNews.title = news[1]
-        tempNews.content = news[2]
-        tempNews.imgUrl = news[3]
-        tempNews.createdBy = news[4]
-        tempNews.createDate = news[5]
-        tempNews.updateDate = news[6]
+        tempNews.musicianId = news[2]
+        tempNews.content = news[3]
+        tempNews.imgUrl = news[4]
+        tempNews.createdBy = news[5]
+        tempNews.createDate = news[6]
+        tempNews.updateDate = news[7]
 
         tempNews.updateDate = tempNews.updateDate.strftime('%d.%m.%Y')
 
@@ -50,10 +51,10 @@ def Get(filterExpression = None):
 def Insert(newNews):
     connection, cursor = basehandler.DbConnect()
 
-    myQuery = """INSERT INTO NEWS_DBT(NEWSTITLE, NEWSCONTENT, NEWSIMGURL, CREATEDBY)
-                 VALUES (%s, %s, %s, %s) RETURNING NEWSID;"""
+    myQuery = """INSERT INTO NEWS_DBT(NEWSTITLE, NEWSMUSICIANID, NEWSCONTENT, NEWSIMGURL, CREATEDBY)
+                 VALUES (%s, %s, %s, %s, %s) RETURNING NEWSID;"""
 
-    cursor = basehandler.DbExecute(myQuery, connection, cursor, (newNews.title, newNews.content, newNews.imgUrl, newNews.createdBy))
+    cursor = basehandler.DbExecute(myQuery, connection, cursor, (newNews.title, newNews.musicianId, newNews.content, newNews.imgUrl, newNews.createdBy))
 
     newNews.newsId = cursor.fetchone()[0]
 
@@ -66,12 +67,13 @@ def Update(currentNews):
     connection, cursor = basehandler.DbConnect()
 
     myQuery = """UPDATE NEWS_DBT SET NEWSTITLE = %s,
+                                     NEWSMUSICIANID = %s,
                                      NEWSCONTENT = %s,
                                      NEWSIMGURL = %s,
                                      UPDATEDATE = %s,
                  WHERE NEWSID = %s"""
 
-    cursor = basehandler.DbExecute(myQuery, connection, cursor, (currentNews.title, currentNews.content, currentNews.imgUrl, currentNews.updateDate, currentNews.newsId))
+    cursor = basehandler.DbExecute(myQuery, connection, cursor, (currentNews.title, currentNews.musicianId, currentNews.content, currentNews.imgUrl, currentNews.updateDate, currentNews.newsId))
 
     basehandler.DbClose(connection, cursor)
 
