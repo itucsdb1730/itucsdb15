@@ -1,7 +1,7 @@
 import psycopg2 as dbapi2
 from elifozer_utilities.currentconfig import CurrentConfig
 
-dbVersion = 18
+dbVersion = 20
 
 
 def DbConnect():
@@ -74,6 +74,7 @@ def DropTable():
     dropQuery =  """DROP TABLE IF EXISTS TICKET_DBT;
                     DROP TABLE IF EXISTS CONCERT_DBT;
                     DROP TABLE IF EXISTS CONCERT_AREA_DBT;
+                    DROP TABLE IF EXISTS NEWS_DBT;
                     DROP TABLE IF EXISTS MUSICIAN_DBT;
                     DROP TABLE IF EXISTS USERS_DBT;
                     DROP TABLE IF EXISTS CONFIG_DBT;"""
@@ -105,13 +106,21 @@ def DbInitialize():
 
     musicianQuery = """CREATE TABLE IF NOT EXISTS MUSICIAN_DBT(
                        MUSICIANID SERIAL PRIMARY KEY,
-                       MUSICIANNAME VARCHAR(40) NOT NULL,
+                       MUSICIANNAME VARCHAR(40) UNIQUE NOT NULL,
                        MUSICIANGENRE VARCHAR(40),
                        MUSICIANESTYEAR VARCHAR(4) NOT NULL,
                        MUSICIANIMGURL VARCHAR(200),
                        MUSICIANDESC VARCHAR(300))"""
 
     DbExecute(musicianQuery, connection, cursor)
+
+    newsQuery = """CREATE TABLE IF NOT EXISTS NEWS_DBT(
+                   NEWSID SERIAL PRIMARY KEY,
+                   NEWSCONTENT VARCHAR(400) NOT NULL,
+                   CREATEDBY INTEGER REFERENCES USER_DBT (USERID) ON DELETE CASCADE ON UPDATE CASCADE,
+                   CREATEDATE TIMESTAMP DEFAULT LOCALTIMESTAMP)"""
+
+    DbExecute(newsQuery, connection, cursor)
 
     concert_areaQuery = """CREATE TABLE IF NOT EXISTS CONCERT_AREA_DBT(
                            CONCERT_AREAID SERIAL PRIMARY KEY,
