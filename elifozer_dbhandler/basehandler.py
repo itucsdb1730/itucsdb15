@@ -1,7 +1,7 @@
 import psycopg2 as dbapi2
 from elifozer_utilities.currentconfig import CurrentConfig
 
-dbVersion = 10
+dbVersion = 18
 
 
 def DbConnect():
@@ -55,7 +55,7 @@ def CheckDbVersion():
 
         insertAdminQuery = """INSERT INTO USER_DBT(USERFIRSTNAME, USERLASTNAME, USERUSERNAME, USERPASSWORD, USEREMAIL, USERTYPE) VALUES (%s, %s, %s, %s, %s, %s)"""
 
-        DbExecute(insertAdminQuery, connection, cursor, ('admin', 'admin', 'elif', 'adem', 'ozere@itu.edu.tr', 1))
+        DbExecute(insertAdminQuery, connection, cursor, ('admin', 'admin', 'elif', 'adem', 'elif@elif.com', 1))
 
         return
     else:
@@ -71,7 +71,10 @@ def CheckDbVersion():
 def DropTable():
     connection, cursor = DbConnect()
 
-    dropQuery =  """DROP TABLE IF EXISTS MUSICIAN_DBT;
+    dropQuery =  """DROP TABLE IF EXISTS TICKET_DBT;
+                    DROP TABLE IF EXISTS CONCERT_DBT;
+                    DROP TABLE IF EXISTS CONCERT_AREA_DBT;
+                    DROP TABLE IF EXISTS MUSICIAN_DBT;
                     DROP TABLE IF EXISTS USERS_DBT;
                     DROP TABLE IF EXISTS CONFIG_DBT;"""
 
@@ -111,26 +114,26 @@ def DbInitialize():
     DbExecute(musicianQuery, connection, cursor)
 
     concert_areaQuery = """CREATE TABLE IF NOT EXISTS CONCERT_AREA_DBT(
-                       CONCERT_AREAID SERIAL PRIMARY KEY,
-                       CONCERT_AREANAME VARCHAR(40) NOT NULL,
-                       CONCERT_AREAADRESS VARCHAR(400)NOT NULL,
-                       CONCERT_AREACAPACITY VARCHAR(7) NOT NULL,"""
+                           CONCERT_AREAID SERIAL PRIMARY KEY,
+                           CONCERT_AREANAME VARCHAR(40) NOT NULL,
+                           CONCERT_AREAADRESS VARCHAR(400) NOT NULL,
+                           CONCERT_AREACAPACITY VARCHAR(7) NOT NULL)"""
 
     DbExecute(concert_areaQuery, connection, cursor)
 
     concertQuery = """CREATE TABLE IF NOT EXISTS CONCERT_DBT(
-                       CONCERTID SERIAL PRIMARY KEY,
-                       CONCERT_AREA_ID VARCHAR(40) NOT NULL,
-                       MUSICIAN_ID VARCHAR(40) NOT NULL,
-                       CONCERTDATE VARCHAR(10) NOT NULL,"""
+                      CONCERTID SERIAL PRIMARY KEY,
+                      CONCERT_AREA_ID VARCHAR(40) NOT NULL,
+                      MUSICIAN_ID VARCHAR(40) NOT NULL,
+                      CONCERTDATE VARCHAR(10) NOT NULL)"""
 
     DbExecute(concertQuery, connection, cursor)
 
     ticketQuery = """CREATE TABLE IF NOT EXISTS TICKET_DBT(
-                       TICKETID SERIAL PRIMARY KEY,
-                       CONCERT_ID VARCHAR(40) NOT NULL,
-                       TICKETPRİCE VARCHAR(10) NOT NULL,
-                       TICKETAVAILABLE VARCHAR(7) NOT NULL,"""
+                     TICKETID SERIAL PRIMARY KEY,
+                     CONCERT_ID VARCHAR(40) NOT NULL,
+                     TICKETPRICE VARCHAR(10) NOT NULL,
+                     TICKETAVAILABLE VARCHAR(7) NOT NULL)"""
 
     DbExecute(ticketQuery, connection, cursor)
 

@@ -80,7 +80,7 @@ def Update(currentMusician):
                                          MUSICIANDESC = %s
                  WHERE MUSICIANID = %s"""
 
-    cursor = basehandler.DbExecute(myQuery, connection, cursor, (currentMusician.name, currentMusician.genre, currentMusician.establishYear, currentMusician.imgUrl, currentMusician.description))
+    cursor = basehandler.DbExecute(myQuery, connection, cursor, (currentMusician.name, currentMusician.genre, currentMusician.establishYear, currentMusician.imgUrl, currentMusician.description, currentMusician.musicianId))
 
     basehandler.DbClose(connection, cursor)
 

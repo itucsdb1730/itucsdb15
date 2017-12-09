@@ -52,3 +52,37 @@ def AddMusician():
     musicianhandler.Insert(musician)
 
     return jsonify("")
+
+
+@musicianoperationshelper.route('/updatemusician', methods=['GET', 'POST'])
+def UpdateMusician():
+    if not IsAuthenticated():
+        return jsonify("You must be logged in to update wall messages")
+
+    if not IsAdmin():
+        return jsonify("You must have admin privileges to update a musician")
+
+    musicianId = request.args.get('musicianId', "", type=int)
+    name = request.args.get('name', "", type=STRING)
+    genre = request.args.get('genre', "", type=STRING)
+    establishYear = request.args.get('establishYear', "", type=STRING)
+    imgUrl = request.args.get('imgUrl', "", type=STRING)
+    description = request.args.get('description', "", type=STRING)
+
+    filterParameter = FilterParameter("MUSICIANID", "=", musicianId)
+
+    filterExpression = FilterExpression()
+    filterExpression.AddParameter(filterParameter)
+
+    musicianList = musicianhandler.Get(filterExpression)
+
+    for m in musicianList:
+        m.name = name
+        m.genre = genre
+        m.establishYear = establishYear
+        m.imgUrl = imgUrl
+        m.description = description
+
+        musicianhandler.Update(m)
+
+    return jsonify("Successfully updated the musician information")

@@ -38,7 +38,7 @@
 		</div>
 
 		<div>
-			<div class="musicianImgUrlDiv" style="margin: 20px 20px 0 20px;">
+			<div class="musicianDescDiv" style="margin: 20px 20px 0 20px;">
 				<p style="color: #8a9a5b; font-weight: bold;">Description:</p>
 
 				<div class="form-group">
@@ -71,10 +71,24 @@
 <section id="musicianListSection" style="margin-top: 40px;">
 	<ul class="list-group">
 		{% for m in musicianList|sort(attribute="name") %}
-		<li class="list-group-item" {% if not authenticated %} style="width: 600px;" {% endif %} {% if authenticated %} style="width: 600px; cursor: pointer;" data-toggle="collapse" data-target='#{{ loop.index }}' {% endif %}>{{ m.name }}</li>
+		<table>
+			<tr>
+				<td>
+					<li class="list-group-item" {% if not authenticated %} style="width: 600px;" {% endif %} {% if authenticated %} style="width: 600px; cursor: pointer;" data-toggle="collapse" data-target='#{{ loop.index }}' {% endif %}>{{ m.name }}</li>
+				</td>
+
+				<td style="padding-left: 20px;">
+					<button class="glyphicon-button update" value="{{ m.musicianId }}" data-toggle="modal" data-target="#updateMusicianModal"
+							onclick="return UpdateMusicianModal({{ m.musicianId }}, '{{ m.name }}', '{{ m.genre }}', '{{ m.establishYear }}', '{{ m.imgUrl }}', '{{ m.description }}');" {% if not admin %} style="display: none;" {% endif %}>
+
+						<span class="glyphicon glyphicon-pencil"></span>
+					</button>
+				</td>
+			</tr>
+		</table>
 
 		<div class="collapse" id={{ loop.index }}>
-			<div class="media list-group-item" style="margin: 15px 0 15px 0; margin-left: 100px; width: 600px; background: #eaeded;">
+			<div class="media list-group-item" style="margin: 15px 0 15px 0; margin-left: 100px; width: 600px; background: #d5d38f;">
 				<div class="media-left">
 					<img class="media-object" src="{{ m.imgUrl }}" height="64" width="64">
 				</div>
@@ -88,5 +102,57 @@
 		</div>
 		{% endfor %}
 	</ul>
+</section>
+
+<section id="musicianUpdateModalSection">
+	<div id="updateMusicianModal" class="modal fade" role="dialog">
+		<span id="modalMusicianId" style="display: none;"></span>
+
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" style="color: #000;" data-dismiss="modal">&times;</button>
+
+					<h4 class="modal-title">Update Musician Information</h4>
+				</div>
+
+				<div class="modal-body">
+					<div style="width: 300px;">
+						<div class="musicianNameDiv" style="margin: 20px 0 0 20px;">
+							<p style="color: #8a9a5b; font-weight: bold;">Musician Name:</p>
+							<input type="text" class="form-control" id="musicianupdate_musicianName"></input>
+						</div>
+
+						<div class="musicianGenreDiv" style="margin: 20px 0 0 20px;">
+							<p style="color: #8a9a5b; font-weight: bold;">Musician Genre:</p>
+							<input type="text" class="form-control" id="musicianupdate_musicianGenre"></input>
+						</div>
+
+						<div class="musicianEstYearDiv" style="margin: 20px 0 0 20px;">
+							<p style="color: #8a9a5b; font-weight: bold;">Establish year:</p>
+							<input type="text" class="form-control" id="musicianupdate_musicianEstYear"></input>
+						</div>
+
+						<div class="musicianImgUrlDiv" style="margin: 20px 0 0 20px;">
+							<p style="color: #8a9a5b; font-weight: bold;">Image URL:</p>
+							<input type="text" class="form-control" id="musicianupdate_musicianImgUrl"></input>
+						</div>
+					</div>
+
+					<div class="musicianDescDiv" style="margin: 20px 20px 0 20px;">
+						<p style="color: #8a9a5b; font-weight: bold;">Description:</p>
+
+						<div class="form-group">
+							<textarea class="form-control" rows="4" maxlength="300" id="musicianupdate_musicianDesc"></textarea>
+						</div>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" onclick='return UpdateMusician();'>Update</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
 {% endblock %}
