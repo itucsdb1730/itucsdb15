@@ -59,8 +59,49 @@ function UpdateMusician()
 	},
 	function(data)
 	{
-		CustomAlert(data);
-		location.reload();
+		if(data == "")
+		{
+			location.reload();
+		}
+		else
+		{
+			CustomUpdateAlert(data);
+		}
+	});
+
+	return false;
+}
+
+
+function CustomUpdateAlert(message)
+{
+	$('#updateAlertHolder').html('<div class="alert alert-success alert-dismissible" role="alert" style="width: 500px; margin: 10px 0 40px 0; background: #90a681;">' +
+						   		'<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+									'<span aria-hidden="true">&times;</span>' +
+								'</button>' +
+								'<p style="color: #fff">' + message + '</p>' +
+							'</div>');
+}
+
+
+function DeleteMusicianModal(musicianId)
+{
+	$("#modalMusicianDeleteId").text(musicianId);
+}
+
+
+function DeleteMusician()
+{
+	$.getJSON('/deletemusician',
+	{
+		musicianId: $("#modalMusicianDeleteId").text()
+	},
+	function(data)
+	{
+		if(data == true)
+			location.reload();
+		else
+			CustomAlert("An error occured while deleting the musician");
 	});
 
 	return false;

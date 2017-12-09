@@ -77,13 +77,23 @@
 					<li class="list-group-item" {% if not authenticated %} style="width: 600px;" {% endif %} {% if authenticated %} style="width: 600px; cursor: pointer;" data-toggle="collapse" data-target='#{{ loop.index }}' {% endif %}>{{ m.name }}</li>
 				</td>
 
+				{% if admin %}
 				<td style="padding-left: 20px;">
 					<button class="glyphicon-button update" value="{{ m.musicianId }}" data-toggle="modal" data-target="#updateMusicianModal"
-							onclick="return UpdateMusicianModal({{ m.musicianId }}, '{{ m.name }}', '{{ m.genre }}', '{{ m.establishYear }}', '{{ m.imgUrl }}', '{{ m.description }}');" {% if not admin %} style="display: none;" {% endif %}>
+							onclick="return UpdateMusicianModal({{ m.musicianId }}, '{{ m.name }}', '{{ m.genre }}', '{{ m.establishYear }}', '{{ m.imgUrl }}', '{{ m.description }}');">
 
 						<span class="glyphicon glyphicon-pencil"></span>
 					</button>
 				</td>
+
+				<td>
+					<button class='glyphicon-button delete' value="{{ m.musicianId }}" data-toggle="modal" data-target="#deleteMusicianModal"
+							onclick='return DeleteMusicianModal({{ m.musicianId }});'>
+
+						<span class="glyphicon glyphicon-trash"></span>
+					</button>
+				</td>
+				{% endif %}
 			</tr>
 		</table>
 
@@ -117,6 +127,8 @@
 				</div>
 
 				<div class="modal-body">
+					<div id="updateAlertHolder" style="margin: 20px 0 0 20px;"></div>
+
 					<div style="width: 300px;">
 						<div class="musicianNameDiv" style="margin: 20px 0 0 20px;">
 							<p style="color: #8a9a5b; font-weight: bold;">Musician Name:</p>
@@ -150,6 +162,31 @@
 
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" onclick='return UpdateMusician();'>Update</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section id="musicianDeleteModalSection">
+	<div id="deleteMusicianModal" class="modal fade" role="dialog" ondialogclose="javascript:return false;">
+		<span id="modalMusicianDeleteId" style="display: none;"></span>
+
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+
+					<h4 class="modal-title">Are you sure?</h4>
+				</div>
+
+				<div class="modal-body">
+					<p>Musician will be deleted permanently. Please confirm to delete.</p>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" onclick='return DeleteMusician();'>Yes</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
 				</div>
 			</div>
 		</div>

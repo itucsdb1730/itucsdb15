@@ -69,20 +69,42 @@ def UpdateMusician():
     imgUrl = request.args.get('imgUrl', "", type=STRING)
     description = request.args.get('description', "", type=STRING)
 
-    filterParameter = FilterParameter("MUSICIANID", "=", musicianId)
+    filterParameter1 = FilterParameter("MUSICIANNAME", "LIKE", name)
 
     filterExpression = FilterExpression()
-    filterExpression.AddParameter(filterParameter)
+    filterExpression.AddParameter(filterParameter1)
 
     musicianList = musicianhandler.Get(filterExpression)
 
-    for m in musicianList:
-        m.name = name
-        m.genre = genre
-        m.establishYear = establishYear
-        m.imgUrl = imgUrl
-        m.description = description
+    if len(musicianList) > 0:
+        return jsonify("This musician already exists. Enter a different musician name.")
 
-        musicianhandler.Update(m)
+    musician = musicianhandler.GetByID(musicianId)
 
-    return jsonify("Successfully updated the musician information")
+    musician.name = name
+    musician.genre = genre
+    musician.establishYear = establishYear
+    musician.imgUrl = imgUrl
+    musician.description = description
+
+    musicianhandler.Update(musician)
+
+    return jsonify("")
+
+
+@musicianoperationshelper.route('/deletemusician', methods=['GET', 'POST'])
+def DeleteMusician():
+    if not IsAuthenticated():
+        return redirect('/')
+
+    if not IsAdmin():
+        return redirect('/')
+
+    musicianId = request.args.get('musicianId', "", type=int)
+
+    try:
+        musicianhandler.Delete(musicianId)
+
+        return jsonify(True)
+    except:
+        return jsonify(False)
