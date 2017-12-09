@@ -23,6 +23,14 @@ function AddNews()
 }
 
 
+function SearchNews()
+{
+	window.location = "/news?searchBy=" + $('input[name="searchBy"]').val();
+
+	return false;
+}
+
+
 function CustomNewsAlert(message)
 {
 	$('#newsAlertHolder').html('<div class="alert alert-success alert-dismissible" role="alert" style="width: 500px; margin: 10px 0 40px 0; background: #90a681;">' +
