@@ -11,6 +11,8 @@ from elifozer_operations.useroperations import useroperations
 from elifozer_operations.useroperationshelper import useroperationshelper
 from elifozer_operations.musicianoperations import musicianoperations
 from elifozer_operations.musicianoperationshelper import musicianoperationshelper
+from elifozer_operations.newsoperations import newsoperations
+from elifozer_operations.newsoperationshelper import newsoperationshelper
 from elifozer_utilities.currentconfig import CurrentConfig
 from elifozer_utilities.commonhelper import IsAuthenticated, GetFullNameSession, IsAdmin
 
@@ -20,6 +22,8 @@ app.register_blueprint(useroperations)
 app.register_blueprint(useroperationshelper)
 app.register_blueprint(musicianoperations)
 app.register_blueprint(musicianoperationshelper)
+app.register_blueprint(newsoperations)
+app.register_blueprint(newsoperationshelper)
 
 
 def get_elephantsql_dsn(vcap_services):
@@ -40,13 +44,6 @@ def home_page():
         now = datetime.datetime.now()
 
         return render_template('intro.html', current_time=now.ctime(), authenticated = IsAuthenticated(), fullName = GetFullNameSession())
-
-
-@app.route('/news', methods=['GET', 'POST'])
-def news():
-    if request.method == 'GET':
-
-        return render_template('news.html', authenticated = IsAuthenticated(), fullName = GetFullNameSession())
 
 
 if __name__ == '__main__':

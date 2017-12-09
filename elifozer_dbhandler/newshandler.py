@@ -1,3 +1,5 @@
+import datetime
+
 from elifozer_dbhandler import basehandler
 from elifozer_utilities.filterparameter import FilterParameter
 from elifozer_utilities.filterexpression import FilterExpression
@@ -36,6 +38,8 @@ def Get(filterExpression = None):
         tempNews.createDate = news[5]
         tempNews.updateDate = news[6]
 
+        tempNews.updateDate = tempNews.updateDate.strftime('%d.%m.%Y')
+
         newsList.append(tempNews)
 
     basehandler.DbClose(connection, cursor)
@@ -46,10 +50,10 @@ def Get(filterExpression = None):
 def Insert(newNews):
     connection, cursor = basehandler.DbConnect()
 
-    myQuery = """INSERT INTO NEWS_DBT(NEWSID, NEWSTITLE, NEWSCONTENT, NEWSIMGURL, CREATEDBY, CREATEDATE, UPDATEDATE)
-                 VALUES (%s, %s, %s, %s, %s, %s, %S) RETURNING NEWSID;"""
+    myQuery = """INSERT INTO NEWS_DBT(NEWSTITLE, NEWSCONTENT, NEWSIMGURL, CREATEDBY)
+                 VALUES (%s, %s, %s, %s) RETURNING NEWSID;"""
 
-    cursor = basehandler.DbExecute(myQuery, connection, cursor, (newNews.title, newNews.content, newNews.imgUrl, newNews.createdBy, newNews.createdDate, newNews.updateDate))
+    cursor = basehandler.DbExecute(myQuery, connection, cursor, (newNews.title, newNews.content, newNews.imgUrl, newNews.createdBy))
 
     newNews.newsId = cursor.fetchone()[0]
 
@@ -64,12 +68,10 @@ def Update(currentNews):
     myQuery = """UPDATE NEWS_DBT SET NEWSTITLE = %s,
                                      NEWSCONTENT = %s,
                                      NEWSIMGURL = %s,
-                                     CREATEDBY = %s,
-                                     CREATEDATE = %s,
                                      UPDATEDATE = %s,
                  WHERE NEWSID = %s"""
 
-    cursor = basehandler.DbExecute(myQuery, connection, cursor, (currentNews.title, currentNews.content, currentNews.imgUrl, currentNews.createdBy, currentNews.createdDate, currentNews.updateDate, currentNews.newsId))
+    cursor = basehandler.DbExecute(myQuery, connection, cursor, (currentNews.title, currentNews.content, currentNews.imgUrl, currentNews.updateDate, currentNews.newsId))
 
     basehandler.DbClose(connection, cursor)
 
