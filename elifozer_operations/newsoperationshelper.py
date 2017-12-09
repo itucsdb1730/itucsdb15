@@ -46,3 +46,21 @@ def AddNews():
     newshandler.Insert(news)
 
     return jsonify("")
+
+
+@newsoperationshelper.route('/deletenews', methods=['GET', 'POST'])
+def DeleteNews():
+    if not IsAuthenticated():
+        return redirect('/')
+
+    if not IsAdmin():
+        return redirect('/')
+
+    newsId = request.args.get('newsId', "", type=int)
+
+    try:
+        newshandler.Delete(newsId)
+
+        return jsonify(True)
+    except:
+        return jsonify(False)

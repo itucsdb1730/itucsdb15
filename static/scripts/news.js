@@ -31,6 +31,29 @@ function SearchNews()
 }
 
 
+function DeleteNewsModal(newsId)
+{
+	$("#modalNewsDeleteId").text(newsId);
+}
+
+
+function DeleteNews()
+{
+	$.getJSON('/deletenews',
+	{
+		newsId: $("#modalNewsDeleteId").text()
+	},
+	function(data)
+	{
+		if(data == true)
+			location.reload();
+		else
+			CustomNewsAlert("An error occured while deleting news");
+	});
+
+	return false;
+}
+
 function CustomNewsAlert(message)
 {
 	$('#newsAlertHolder').html('<div class="alert alert-success alert-dismissible" role="alert" style="width: 500px; margin: 10px 0 40px 0; background: #90a681;">' +
