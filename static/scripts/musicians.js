@@ -25,3 +25,11 @@ function AddMusician()
 
 	return false;
 }
+
+
+function SearchMusician()
+{
+	window.location = "/musicians?searchBy=" + $('input[name="searchBy"]').val();
+
+	return false;
+}

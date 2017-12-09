@@ -3,7 +3,7 @@
 {% extends "base.html" %}
 
 {% block head %}
-	<script type="text/javascript" src="{{ url_for('static', filename='scripts/musician.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='scripts/musicians.js') }}"></script>
 {% endblock %}
 
 {% block title %}Musicians{% endblock %}
@@ -54,14 +54,14 @@
 </section>
 {% endif %}
 
-<section id="musicianAddSection" style="padding:20px 0 20px 0; margin: 0 auto; width: 40%;">
+<section id="musicianSearchSection" style="padding:20px 0 20px 0; margin: 0 auto; width: 40%;">
 	<div class="row">
 		<div>
 	    	<div class="input-group">
-	      		<input type="text" class="form-control" placeholder="Search for musician...">
+	      		<input name="searchBy" type="text" class="form-control" placeholder="Search for musician...">
 
 	      		<span class="input-group-btn">
-	        		<button class="btn btn-default" type="button" style="color:#4f7942;">Search</button>
+	        		<button class="btn btn-default" type="button" style="color:#4f7942;" onclick="return SearchMusician();">Search</button>
 	      		</span>
 	    	</div>
 	  	</div>
