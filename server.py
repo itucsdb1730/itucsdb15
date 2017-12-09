@@ -42,6 +42,13 @@ def home_page():
         return render_template('intro.html', current_time=now.ctime(), authenticated = IsAuthenticated(), fullName = GetFullNameSession())
 
 
+@app.route('/news', methods=['GET', 'POST'])
+def news():
+    if request.method == 'GET':
+
+        return render_template('news.html', authenticated = IsAuthenticated(), fullName = GetFullNameSession())
+
+
 if __name__ == '__main__':
     VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')
 

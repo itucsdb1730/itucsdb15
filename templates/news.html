@@ -1,0 +1,21 @@
+<!-- Elif Özer -->
+
+{% extends "base.html" %}
+
+{% block head %}
+	<script type="text/javascript" src="{{ url_for('static', filename='scripts/news.js') }}"></script>
+{% endblock %}
+
+{% block title %}News{% endblock %}
+
+{% block content %}
+<section id="newsSection">
+	<div class="col-xs-6 col-lg-4" style="padding-right: 0px;">
+		<div class="panel panel-default">
+			<div class="panel-heading" style="background: #db6900; color: #fff;"></div>
+
+			<div class="panel-body" style="padding: 10px; margin-left: 5px;"></div>
+		</div>
+	</div>
+</section>
+{% endblock %}

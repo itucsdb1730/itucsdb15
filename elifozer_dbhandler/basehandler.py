@@ -1,7 +1,7 @@
 import psycopg2 as dbapi2
 from elifozer_utilities.currentconfig import CurrentConfig
 
-dbVersion = 20
+dbVersion = 21
 
 
 def DbConnect():
@@ -116,9 +116,12 @@ def DbInitialize():
 
     newsQuery = """CREATE TABLE IF NOT EXISTS NEWS_DBT(
                    NEWSID SERIAL PRIMARY KEY,
+                   NEWSTITLE VARCHAR(200) NOT NULL,
                    NEWSCONTENT VARCHAR(400) NOT NULL,
+                   NEWSIMGURL VARCHAR(200),
                    CREATEDBY INTEGER REFERENCES USER_DBT (USERID) ON DELETE CASCADE ON UPDATE CASCADE,
-                   CREATEDATE TIMESTAMP DEFAULT LOCALTIMESTAMP)"""
+                   CREATEDATE TIMESTAMP DEFAULT LOCALTIMESTAMP,
+                   UPDATEDATE TIMESTAMP DEFAULT LOCALTIMESTAMP)"""
 
     DbExecute(newsQuery, connection, cursor)
 
