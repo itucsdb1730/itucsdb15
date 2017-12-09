@@ -1,6 +1,6 @@
 applications:
 - services:
-  - ElephantSQL-ae
+  - ElephantSQL-7s
   disk_quota: 1024M
   host: itucsdb1730
   name: itucsdb1730
