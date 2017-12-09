@@ -1,3 +1,4 @@
+import datetime
 from flask import Blueprint, jsonify, Flask
 from flask.globals import request
 from click.types import STRING
@@ -44,6 +45,39 @@ def AddNews():
     news.createdBy = GetUserIdSession()
 
     newshandler.Insert(news)
+
+    return jsonify("")
+
+
+@newsoperationshelper.route('/updatenews', methods=['GET', 'POST'])
+def UpdateNews():
+    if not IsAuthenticated():
+        return jsonify("You must be logged in to update news")
+
+    if not IsAdmin():
+        return jsonify("You must have admin privileges to update news")
+
+    newsId = request.args.get('newsId', "", type=int)
+    title = request.args.get('title', "", type=STRING)
+    musicianName = request.args.get('musicianName', "", type=STRING)
+    imgUrl = request.args.get('imgUrl', "", type=STRING)
+    content = request.args.get('content', "", type=STRING)
+
+    musician = musicianhandler.GetByMusicianName(musicianName)
+
+    news = newshandler.GetByID(newsId)
+
+    news.title = title
+    news.musicianId = musician.musicianId
+    news.imgUrl = imgUrl
+    news.content = content
+
+    validationMsg = news.IsValid()
+
+    if validationMsg != "":
+        return jsonify(validationMsg)
+
+    newshandler.Update(news)
 
     return jsonify("")
 

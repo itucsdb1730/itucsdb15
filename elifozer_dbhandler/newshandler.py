@@ -67,11 +67,14 @@ def Update(currentNews):
     myQuery = """UPDATE NEWS_DBT SET NEWSTITLE = %s,
                                      NEWSMUSICIANID = %s,
                                      NEWSCONTENT = %s,
-                                     NEWSIMGURL = %s,
-                                     UPDATEDATE = %s,
+                                     NEWSIMGURL = %s
                  WHERE NEWSID = %s"""
 
-    cursor = basehandler.DbExecute(myQuery, connection, cursor, (currentNews.title, currentNews.musicianId, currentNews.content, currentNews.imgUrl, currentNews.updateDate, currentNews.newsId))
+    cursor = basehandler.DbExecute(myQuery, connection, cursor, (currentNews.title, currentNews.musicianId, currentNews.content, currentNews.imgUrl, currentNews.newsId))
+
+    myQuery = """UPDATE NEWS_DBT SET UPDATEDATE = LOCALTIMESTAMP WHERE NEWSID =""" + str(currentNews.newsId) + ";"
+
+    cursor = basehandler.DbExecute(myQuery, connection, cursor)
 
     basehandler.DbClose(connection, cursor)
 

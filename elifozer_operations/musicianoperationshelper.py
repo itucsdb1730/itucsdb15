@@ -57,7 +57,7 @@ def AddMusician():
 @musicianoperationshelper.route('/updatemusician', methods=['GET', 'POST'])
 def UpdateMusician():
     if not IsAuthenticated():
-        return jsonify("You must be logged in to update wall messages")
+        return jsonify("You must be logged in to update a musician")
 
     if not IsAdmin():
         return jsonify("You must have admin privileges to update a musician")
