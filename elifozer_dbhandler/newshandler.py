@@ -39,8 +39,6 @@ def Get(filterExpression = None):
         tempNews.createDate = news[6]
         tempNews.updateDate = news[7]
 
-        tempNews.updateDate = tempNews.updateDate.strftime('%d.%m.%Y')
-
         newsList.append(tempNews)
 
     basehandler.DbClose(connection, cursor)

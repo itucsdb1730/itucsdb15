@@ -46,12 +46,16 @@
 					<img src="{{ n.imgUrl }}" height=200px;>
 				</div>
 
-				<div style="margin-top: 30px; text-align: justify;">
+				<div style="margin-top: 30px;">
+					<h3><strong>About: </strong>{{ n.musicianName }}</h3>
+				</div>
+
+				<div style="margin-top: 10px; text-align: justify;">
 					<h3>{{ n.content }}</h3>
 				</div>
 
 				<div style="text-align: right; font-size: 0.80em; color: #9c9c9c; margin-top: 40px;">
-					<h3>{{ n.createdBy }}</h3>
+					<h3>{{ n.creatorName }}</h3>
 					<h3>{{ n.updateDate }}</h3>
 				</div>
 			</div>
