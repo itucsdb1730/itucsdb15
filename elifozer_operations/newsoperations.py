@@ -21,7 +21,12 @@ def News():
         newsList = newsviewhandler.Get()
         newsList.sort(key=lambda x: x.updateDate, reverse=True)
 
-        return render_template('news.html', newsList = newsList[:3], authenticated = IsAuthenticated(), admin = IsAdmin(), fullName = GetFullNameSession())
+        newsList = newsList[:3]
+
+        for n in newsList:
+            n.updateDate = n.updateDate.strftime('%d.%m.%Y')
+
+        return render_template('news.html', newsList = newsList, authenticated = IsAuthenticated(), admin = IsAdmin(), fullName = GetFullNameSession())
 
     searchBy = request.args.get('searchBy', "", type=STRING)
 
@@ -31,5 +36,8 @@ def News():
 
     newsList = newsviewhandler.Get(filterExpression)
     newsList.sort(key=lambda x: x.updateDate, reverse=True)
+
+    for n in newsList:
+        n.updateDate = n.updateDate.strftime('%d.%m.%Y')
 
     return render_template('news.html', newsList = newsList, authenticated = IsAuthenticated(), admin = IsAdmin(), fullName = GetFullNameSession())

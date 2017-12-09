@@ -39,8 +39,6 @@ def Get(filterExpression = None):
         tempNewsView.creatorName = nv[8]
         tempNewsView.musicianName = nv[9]
 
-        tempNewsView.updateDate = tempNewsView.updateDate.strftime('%d.%m.%Y')
-
         newsViewList.append(tempNewsView)
 
     basehandler.DbClose(connection, cursor)
