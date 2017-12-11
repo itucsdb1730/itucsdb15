@@ -1,7 +1,7 @@
 import psycopg2 as dbapi2
 from elifozer_utilities.currentconfig import CurrentConfig
 
-dbVersion = 33
+dbVersion = 35
 
 def DbConnect():
     try:
@@ -78,7 +78,7 @@ def DropTable():
                     DROP VIEW IF EXISTS NEWSVIEW CASCADE;
                     DROP TABLE IF EXISTS NEWS_DBT CASCADE;
                     DROP TABLE IF EXISTS MUSICIAN_DBT CASCADE;
-                    DROP TABLE IF EXISTS USERS_DBT CASCADE;
+                    DROP TABLE IF EXISTS USER_DBT CASCADE;
                     DROP TABLE IF EXISTS CONFIG_DBT CASCADE;"""
 
     DbExecute(dropQuery, connection, cursor)
