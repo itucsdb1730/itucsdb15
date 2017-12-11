@@ -1,7 +1,7 @@
 import psycopg2 as dbapi2
 from elifozer_utilities.currentconfig import CurrentConfig
 
-dbVersion = 30
+dbVersion = 33
 
 def DbConnect():
     try:
@@ -145,15 +145,15 @@ def DbInitialize():
 
     concertQuery = """CREATE TABLE IF NOT EXISTS CONCERT_DBT(
                       CONCERTID SERIAL PRIMARY KEY,
-                      CONCERT_AREA_ID VARCHAR(40) NOT NULL,
-                      MUSICIAN_ID VARCHAR(40) NOT NULL,
-                      CONCERTDATE VARCHAR(10) NOT NULL)"""
+                      CONCERTCONCERT_AREAID INTEGER REFERENCES CONCERT_AREA_DBT (CONCERT_AREAID) ON DELETE CASCADE ON UPDATE CASCADE,
+                      CONCERTMUSICIANID INTEGER REFERENCES MUSICIAN_DBT (MUSICIANID) ON DELETE CASCADE ON UPDATE CASCADE,
+                      CONCERTDATE VARCHAR(12) NOT NULL)"""
 
     DbExecute(concertQuery, connection, cursor)
 
     ticketQuery = """CREATE TABLE IF NOT EXISTS TICKET_DBT(
                      TICKETID SERIAL PRIMARY KEY,
-                     CONCERT_ID VARCHAR(40) NOT NULL,
+                     TICKETCONCERT_ID INTEGER REFERENCES CONCERT_DBT (CONCERTID) ON DELETE CASCADE ON UPDATE CASCADE,
                      TICKETPRICE VARCHAR(10) NOT NULL,
                      TICKETAVAILABLE VARCHAR(7) NOT NULL)"""
 

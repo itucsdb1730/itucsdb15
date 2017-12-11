@@ -1,6 +1,6 @@
 class Ticket:
     def __init__(self):
         self.ticketId = -1
-        self.concert_id = ""
+        self.concertId = -1
         self.price = ""
-        self.avilable_ticket = ""
+        self.available_ticket = ""
