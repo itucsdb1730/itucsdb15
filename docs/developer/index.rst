@@ -1,31 +1,41 @@
 Developer Guide
 ===============
 
-Database Design
----------------
 
-**explain the database design of your project**
+In our developer guide, we will explain how the project works and what operations have been implemented in technical terms. This is a guide intended for
+developers to enjoy our work.
 
-**include the E/R diagram(s)**
+While developing we used:
+   * Python, Flask, Psycopg2
 
-Code
-----
+   * HTML, CSS and Bootstrap
 
-**explain the technical structure of your code**
+   * JavaScript and JQuery
 
-**to include a code listing, use the following example**::
+   * Postgresql
 
-   .. code-block:: python
+   * Vagrant via VirtualBox
 
-      class Foo:
+   * Github
 
-         def __init__(self, x):
-            self.x = x
+   * Bluemix
+
+
+Every developer will provide their ER diagrams on their own section.
+
+You can see the general ER diagram which is created by using Microsoft Visio below:
+
+.. figure:: ../images/1.png
+     :scale: 100 %
+     :alt: ER Diagram
+     :align: center
+
+     ER Diagram
+
+**You can reach our source code by clicking: https://github.com/itucsdb1730/itucsdb1730**
 
 .. toctree::
 
-   member1
-   member2
-   member3
-   member4
-   member5
+   Elif Özer
+   Savaş Denli
+   Mustafa Gök
