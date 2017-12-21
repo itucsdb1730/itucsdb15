@@ -87,3 +87,84 @@ In the following function, admin users are introduced into system.
            if currentDbVersionInt < dbVersion:
                DropTable()
                DbInitialize()
+
+
+Dropping all tables is done (in reverse create order) by the below function:
+
+
+.. code-block:: python
+   :linenos:
+
+   def DropTable():
+       connection, cursor = DbConnect()
+
+       dropQuery =  """DROP TABLE IF EXISTS TICKET_DBT CASCADE;
+                       DROP TABLE IF EXISTS CONCERT_DBT CASCADE;
+                       DROP TABLE IF EXISTS CONCERT_AREA_DBT CASCADE;
+                       DROP VIEW IF EXISTS NEWSVIEW CASCADE;
+                       DROP TABLE IF EXISTS NEWS_DBT CASCADE;
+                       DROP TABLE IF EXISTS MUSICIAN_DBT CASCADE;
+                       DROP TABLE IF EXISTS USER_DBT CASCADE;
+                       DROP TABLE IF EXISTS CONFIG_DBT CASCADE;"""
+
+       DbExecute(dropQuery, connection, cursor)
+       DbClose(connection, cursor)
+
+
+User Operations
+===============
+
+In this section, developments required for user operations will be explained.
+
+SQL
+---
+
+Information regarding the user such as user first name, user last name, user username etc. kept in the database table USER_DBT.
+News table will be explained later on, but this table has a foreign key relation to USER_DBT table.
+
+Create table query for USER_DBT can be seen below:
+
+.. code-block:: sql
+   :linenos:
+
+    CREATE TABLE IF NOT EXISTS USER_DBT(
+                   USERID SERIAL PRIMARY KEY,
+                   USERFIRSTNAME VARCHAR(40),
+                   USERLASTNAME VARCHAR(40),
+                   USERUSERNAME VARCHAR(40) NOT NULL UNIQUE,
+                   USERPASSWORD VARCHAR(40) NOT NULL,
+                   USEREMAIL VARCHAR(60) NOT NULL UNIQUE,
+                   USERTYPE INTEGER NOT NULL)
+
+Insert, Update and Delete queries for USER_DBT are:
+
+
+.. code-block:: sql
+   :linenos:
+
+   INSERT INTO USER_DBT(
+                  USERFIRSTNAME,
+                  USERLASTNAME,
+                  USERUSERNAME,
+                  USERPASSWORD,
+                  USEREMAIL,
+                  USERTYPE)
+               VALUES (%s, %s, %s, %s, %s, %s) RETURNING USERID;
+
+.. code-block:: sql
+   :linenos:
+
+   UPDATE USER_DBT SET USERFIRSTNAME = %s,
+                       USERLASTNAME = %s,
+                       USERUSERNAME = %s,
+                       USERPASSWORD = %s,
+                       USEREMAIL = %s
+                 WHERE USERID = %s
+
+.. code-block:: python
+   :linenos:
+
+   myQuery = "DELETE FROM USER_DBT WHERE USERID = " + str(userId)
+
+
+%s parameters are filled with python format functions.
