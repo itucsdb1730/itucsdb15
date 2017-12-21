@@ -1,6 +1,7 @@
 Welcome to itucsdb1730's documentation!
 =======================================
 
+
 :Team: Ticketosaur (itucsdb1730)
 
 :Members:
@@ -21,6 +22,7 @@ We provide more than you ever need!
 
 
 **You can access our website by clicking: http://itucsdb1730.mybluemix.net/**
+
 
 .. toctree::
    :maxdepth: 5
