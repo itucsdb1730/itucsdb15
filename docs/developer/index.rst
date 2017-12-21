@@ -37,5 +37,4 @@ You can see the general ER diagram which is created by using Microsoft Visio bel
 .. toctree::
 
    Elif Özer
-   Savaş Denli
-   Mustafa Gök
+   Onur Bozova
