@@ -168,3 +168,267 @@ Insert, Update and Delete queries for USER_DBT are:
 
 
 %s parameters are filled with python format functions.
+
+Select query can be found in the below function:
+
+.. code-block:: python
+   :linenos:
+
+   def Get(filterExpression = None):
+       connection, cursor = basehandler.DbConnect()
+
+       myQuery = "SELECT * FROM USER_DBT"
+
+       if filterExpression is None:
+           cursor = basehandler.DbExecute(myQuery, connection, cursor)
+       else:
+           myQuery += filterExpression.GetWhere()
+           cursor = basehandler.DbExecute(myQuery, connection, cursor, filterExpression.GetParameters())
+
+       userList = []
+
+       for user in cursor.fetchall():
+           tempUser = User()
+
+           tempUser.userId = user[0]
+           tempUser.firstName = user[1]
+           tempUser.lastName = user[2]
+           tempUser.username = user[3]
+           tempUser.password = user[4]
+           tempUser.email = user[5]
+           tempUser.userType = user[6]
+
+           userList.append(tempUser)
+
+       basehandler.DbClose(connection, cursor)
+
+       return userList
+
+FilterExpression class holds the list of column name, the operator and the operand. When we call GetWhere function, we use FilterExpression class to create a generic where contidion.
+FilterParameter holds the column name, the operator and the operand. FilterExpression is a list of FilterParameters.
+
+Register User
+-------------
+
+In order to register a new user, after user provides data via the interface and click the submit button, JavaScript combines this data. After combining,
+AJAX request triggers our Python Code. JavaScript and Python codes can be seen below.
+
+.. code-block:: javascript
+   :linenos:
+
+   function RegisterOperation()
+   {
+      $.getJSON('/register',
+      {
+         registerFirstName: $('input[name="registerFirstName"]').val(),
+         registerLastName: $('input[name="registerLastName"]').val(),
+         registerUsername: $('input[name="registerUsername"]').val(),
+         registerEmail: $('input[name="registerEmail"]').val(),
+         registerPassword: $('input[name="registerPassword"]').val()
+      },
+      function(data)
+      {
+         if(data !== "")
+         {
+            var modal = $('#userWarningModal');
+
+            modal.find('#userWarningModalMsg').text(data);
+            $('#userWarningModal').modal('show');
+         }
+         else
+            window.location = "/home";
+      });
+
+      return false;
+   }
+
+
+.. code-block:: python
+   :linenos:
+
+   @useroperationshelper.route('/register', methods=['GET', 'POST'])
+   def Register():
+       if IsAuthenticated():
+           return redirect('/')
+
+       user = User()
+
+       user.firstName = request.args.get('registerFirstName', "", type=STRING)
+       user.lastName = request.args.get('registerLastName', "", type=STRING)
+       user.username = request.args.get('registerUsername', "", type=STRING)
+       user.email = request.args.get('registerEmail', "", type=STRING)
+       user.password = request.args.get('registerPassword', "", type=STRING)
+       user.userType = 2
+
+       validationMessage = user.IsValid()
+
+       if validationMessage != "":
+           return jsonify(validationMessage)
+
+       filterParameter = FilterParameter("USERUSERNAME", "LIKE", user.username)
+       filterExpression = FilterExpression()
+       filterExpression.AddParameter(filterParameter)
+       users = userhandler.Get(filterExpression)
+
+       if len(users) > 0:
+           return jsonify("Username already exists")
+
+       filterParameter = FilterParameter("USEREMAIL", "LIKE", user.email)
+       filterExpression = FilterExpression()
+       filterExpression.AddParameter(filterParameter)
+       users = userhandler.Get(filterExpression)
+
+       if len(users) > 0:
+           return jsonify("Email already exists")
+
+       user = userhandler.Insert(user)
+
+       SetUserIdSession(user.userId)
+       SetFullNameSession(user.firstName + " " + user.lastName)
+       SetUsernameSession(user.username)
+
+       return jsonify("")
+
+Login User
+----------
+
+In order to login to our website, after registered user provides data via the interface and click the submit button, JavaScript combines this data. After combining,
+AJAX request triggers our Python Code. JavaScript and Python codes can be seen below.
+
+.. code-block:: javascript
+   :linenos:
+
+   function LoginOperation()
+   {
+      $.getJSON('/login',
+      {
+         loginUsernameEmail: $('input[name="loginUsernameEmail"]').val(),
+         loginPassword: $('input[name="loginPassword"]').val()
+      },
+      function(data)
+      {
+         if(data == "")
+            window.location = "/home";
+         else
+         {
+            var modal = $('#userWarningModal');
+
+            modal.find('#userWarningModalMsg').text(data);
+            $('#userWarningModal').modal('show');
+         }
+      });
+
+      return false;
+   }
+
+
+.. code-block:: python
+   :linenos:
+
+   @useroperationshelper.route('/login', methods=['GET', 'POST'])
+   def Login():
+       usernameEmail = request.args.get('loginUsernameEmail', "", type=STRING)
+       user = userhandler.GetByUsernameOrEmail(usernameEmail)
+
+       if user.userId == -1:
+           return jsonify("Invalid username or e-mail")
+
+       if user.password != request.args.get('loginPassword', "", type=STRING):
+           return jsonify("Invalid password")
+
+       SetUserIdSession(user.userId)
+       SetFullNameSession(user.firstName + " " + user.lastName)
+       SetUsernameSession(user.username)
+
+       return jsonify("")
+
+Users can log out using the dropdown menu on the upper right corner of the secret. Clicking this "logout" link will trigger the operation.
+
+.. code-block:: python
+   :linenos:
+
+   @useroperationshelper.route('/logout', methods=['GET'])
+   def Logout():
+       SetUserIdSession(-1)
+       SetFullNameSession("")
+       SetUsernameSession("")
+
+       return redirect('/')
+
+User Settings
+-------------
+
+In this section (on user home page), the fields are filled with user's information. If user wants to change his/her information, he/she needs to provide new data. After the user provides new data and clicks the update button, AJAX call is made.
+After this request, updated values will be updated in the database.
+
+Also, removing a user from the database is triggered after user clicks the delete button.
+
+Update and delete user functions can be seen below.
+
+.. code-block:: python
+   :linenos:
+
+   @useroperationshelper.route('/updateuser', methods=['GET', 'POST'])
+   def UpdateUser():
+       if not IsAuthenticated():
+           return redirect('/')
+
+       try:
+           user = User()
+
+           user.firstName = request.args.get('usersettings_firstName', "", type=STRING)
+           user.lastName = request.args.get('usersettings_lastName', "", type=STRING)
+           user.username = request.args.get('usersettings_username', "", type=STRING)
+           user.email = request.args.get('usersettings_email', "", type=STRING)
+           user.password = request.args.get('usersettings_password', "", type=STRING)
+
+           user.userId = GetUserIdSession()
+
+           validationMessage = user.IsValid()
+
+           if validationMessage != "":
+               return jsonify(validationMessage)
+
+           filterParameter = FilterParameter("USERUSERNAME", "LIKE", user.username)
+           filterExpression = FilterExpression()
+           filterExpression.AddParameter(filterParameter)
+           users = userhandler.Get(filterExpression)
+
+           if len(users) > 0 and users[0].userId != GetUserIdSession():
+               return jsonify("This username is already taken")
+
+           filterParameter = FilterParameter("USEREMAIL", "LIKE", user.email)
+           filterExpression = FilterExpression()
+           filterExpression.AddParameter(filterParameter)
+           users = userhandler.Get(filterExpression)
+
+           if len(users) > 0 and users[0].userId != GetUserIdSession():
+               return jsonify("This e-mail address is already taken")
+
+           userhandler.Update(user)
+           SetUserIdSession(user.userId)
+           SetFullNameSession(user.firstName + " " + user.lastName)
+           SetUsernameSession(user.username)
+
+           return jsonify("")
+       except:
+           return jsonify("Unexpected error occured")
+
+
+.. code-block:: python
+   :linenos:
+
+   @useroperationshelper.route('/deleteuser', methods=['GET', 'POST'])
+   def DeleteUser():
+       if not IsAuthenticated():
+           return redirect('/')
+
+       try:
+           userhandler.Delete(GetUserIdSession())
+           SetUserIdSession(-1)
+           SetFullNameSession("")
+           SetUsernameSession("")
+
+           return jsonify(True)
+       except:
+           return jsonify(False)
