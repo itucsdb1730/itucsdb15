@@ -67,11 +67,6 @@ After a successful register operation, users will be redirected to their home pa
      Ticketosaur Register Area
 
 
-.. raw:: latex
-
-    \newpage
-
-
 User Home Page
 ==============
 
@@ -88,6 +83,11 @@ You will also see a delete button. This button provides permanent account remova
      :align: center
 
      User Home Page
+
+
+.. raw:: latex
+
+    \newpage
 
 
 Musician Page
