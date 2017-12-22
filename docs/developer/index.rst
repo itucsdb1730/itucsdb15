@@ -26,10 +26,10 @@ You can see the general ER diagram which is created by using Microsoft Visio bel
 
 .. figure:: ../images/1.png
      :scale: 100 %
-     :alt: ER Diagram
+     :alt: General ER Diagram
      :align: center
 
-     ER Diagram
+     General ER Diagram
 
 
 **You can reach our source code by clicking here: https://github.com/itucsdb1730/itucsdb1730**

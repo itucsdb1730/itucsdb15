@@ -1,16 +1,14 @@
 User Guide
 ==========
 
-**explain how your application works from the user perspective, use
-screenshots whereever appropriate**
+In our user guide, we will navigate you through our website so that you can use every feature of it. This guide is intended for end-users.
 
-**to add a picture, use the following example**::
+.. figure:: ../images/3.*
+   :scale: 100 %
+   :alt: Ticketosaur
+   :align: center
 
-   .. figure:: picture.png
-      :scale: 50 %
-      :alt: map to buried treasure
-
-      This is the caption of the figure (a simple paragraph).
+   Ticketosaur
 
 .. toctree::
 
