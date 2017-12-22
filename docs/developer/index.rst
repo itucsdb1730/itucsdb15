@@ -32,7 +32,7 @@ You can see the general ER diagram which is created by using Microsoft Visio bel
      ER Diagram
 
 
-**You can reach our source code by clicking: https://github.com/itucsdb1730/itucsdb1730**
+**You can reach our source code by clicking here: https://github.com/itucsdb1730/itucsdb1730**
 
 
 .. toctree::
