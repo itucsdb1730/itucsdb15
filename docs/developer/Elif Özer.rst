@@ -19,6 +19,11 @@ You can see the ER diagram for the parts implemented by Elif Özer below:
      ER Diagram implemented by Elif Özer
 
 
+.. raw:: latex
+
+    \newpage
+
+
 Whenever the project is ordered to run,
 
 
@@ -88,6 +93,11 @@ In the following function, admin users are introduced into system.
            if currentDbVersionInt < dbVersion:
                DropTable()
                DbInitialize()
+
+
+.. raw:: latex
+
+    \newpage
 
 
 Dropping all tables is done (in reverse create order) by the below function:
