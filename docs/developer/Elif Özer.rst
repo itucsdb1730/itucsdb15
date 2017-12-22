@@ -659,6 +659,11 @@ Server side codes can be seen below.
        return jsonify("")
 
 
+.. raw:: latex
+
+    \newpage
+
+
 Update Musician
 ---------------
 
@@ -715,6 +720,11 @@ the message. After clicking submit, the changes that are done are sent to server
 is removed from the database.
 
 
+.. raw:: latex
+
+    \newpage
+
+
 .. code-block:: python
    :linenos:
 
@@ -762,6 +772,12 @@ All musicians in the database are shown if there are no search data is provided.
 
 
 Login users can also trigger a collapsed area about the musicians. This area will provide detailed musician information. If it is not a logged in user, only the musician list (not in clickable form) will be shows. Collapse area for the musician information section is applied by checking if the user is authenticated.
+
+
+.. raw:: latex
+
+    \newpage
+
 
 Musicians on the musician page are shown by the following html code:
 
