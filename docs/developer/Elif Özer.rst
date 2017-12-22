@@ -449,6 +449,11 @@ Update and delete user functions can be seen below.
            return jsonify("Unexpected error occured")
 
 
+.. raw:: latex
+
+    \newpage
+
+
 .. code-block:: python
    :linenos:
 
@@ -523,6 +528,11 @@ Insert, Update and Delete queries for MUSICIAN_DBT are:
    :linenos:
 
    myQuery = "DELETE FROM MUSICIAN_DBT WHERE MUSICIANID = " + str(musicianId)
+
+
+.. raw:: latex
+
+    \newpage
 
 
 %s parameters are filled with python format functions.
