@@ -755,3 +755,102 @@ Musicians on the musician page are shown by the following html code:
       {% endfor %}
    </ul>
    </section>
+
+News Operations
+===============
+
+In this section, developments required for news operations will be explained.
+
+
+SQL
+---
+
+Information regarding the news table such as title, musician id, content etc. kept in the database table NEWS_DBT. Moreover, NEWSVIEW view is created
+to access the news creator name and the regarding musician name information with the news entity. NEWSVIEW is created with inner join operation.
+Moreover, News table has foreign key relation to USER_DBT table on the user id (this is the creator id for the news) and the MUSICIAN_DBT table on the musician id.
+
+Create table query for NEWS_DBT and create view script for NEWSVIEW can be seen below:
+
+.. code-block:: sql
+   :linenos:
+
+   CREATE TABLE IF NOT EXISTS NEWS_DBT(
+                      NEWSID SERIAL PRIMARY KEY,
+                      NEWSTITLE VARCHAR(200) NOT NULL,
+                      NEWSMUSICIANID INTEGER REFERENCES MUSICIAN_DBT (MUSICIANID) ON DELETE CASCADE ON UPDATE CASCADE,
+                      NEWSCONTENT VARCHAR(400) NOT NULL,
+                      NEWSIMGURL VARCHAR(200),
+                      CREATEDBY INTEGER REFERENCES USER_DBT (USERID) ON DELETE CASCADE ON UPDATE CASCADE,
+                      CREATEDATE TIMESTAMP DEFAULT LOCALTIMESTAMP,
+                      UPDATEDATE TIMESTAMP DEFAULT LOCALTIMESTAMP)
+
+.. code-block:: sql
+   :linenos:
+
+   CREATE VIEW NEWSVIEW AS
+                SELECT N.*, U.USERUSERNAME AS CREATORNAME, M.MUSICIANNAME FROM NEWS_DBT N
+                       INNER JOIN USER_DBT U ON N.CREATEDBY = U.USERID
+                       INNER JOIN MUSICIAN_DBT M ON N.NEWSMUSICIANID = M.MUSICIANID
+
+
+Insert, Update and Delete queries for NEWS_DBT are:
+
+
+.. code-block:: sql
+   :linenos:
+
+   INSERT INTO NEWS_DBT(NEWSTITLE, NEWSMUSICIANID, NEWSCONTENT, NEWSIMGURL, CREATEDBY)
+                 VALUES (%s, %s, %s, %s, %s) RETURNING NEWSID;
+
+.. code-block:: sql
+   :linenos:
+
+   UPDATE NEWS_DBT SET NEWSTITLE = %s,
+                      NEWSMUSICIANID = %s,
+                      NEWSCONTENT = %s,
+                      NEWSIMGURL = %s
+                 WHERE NEWSID = %s
+
+.. code-block:: python
+   :linenos:
+
+   myQuery = "DELETE FROM NEWS_DBT WHERE NEWSID = " + str(newsId)
+
+
+%s parameters are filled with python format functions.
+
+Select query is perfomed with FilterExpression class generically. Code can be seen below.
+
+.. code-block:: sql
+   :linenos:
+
+   def Get(filterExpression = None):
+       connection, cursor = basehandler.DbConnect()
+
+       myQuery = "SELECT * FROM NEWS_DBT"
+
+       if filterExpression is None:
+           cursor = basehandler.DbExecute(myQuery, connection, cursor)
+       else:
+           myQuery += filterExpression.GetWhere()
+           cursor = basehandler.DbExecute(myQuery, connection, cursor, filterExpression.GetParameters())
+
+       newsList = []
+
+       for news in cursor.fetchall():
+           tempNews = News()
+
+           tempNews.newsId = news[0]
+           tempNews.title = news[1]
+           tempNews.musicianId = news[2]
+           tempNews.content = news[3]
+           tempNews.imgUrl = news[4]
+           tempNews.createdBy = news[5]
+           tempNews.createDate = news[6]
+           tempNews.updateDate = news[7]
+
+           newsList.append(tempNews)
+
+       basehandler.DbClose(connection, cursor)
+
+       return newsList
