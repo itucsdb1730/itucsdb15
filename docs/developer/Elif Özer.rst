@@ -308,6 +308,11 @@ AJAX request triggers our Python Code. JavaScript and Python codes can be seen b
        return jsonify("")
 
 
+.. raw:: latex
+
+    \newpage
+
+
 Login User
 ----------
 
@@ -376,6 +381,11 @@ Users can log out using the dropdown menu on the upper right corner of the secre
        SetUsernameSession("")
 
        return redirect('/')
+
+
+.. raw:: latex
+
+    \newpage
 
 
 User Settings
