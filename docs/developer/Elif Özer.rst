@@ -3,7 +3,7 @@
     \newpage
 
 Parts Implemented by Elif Özer
-==============================
+******************************
 
 In this part, 3 major parts will be explained. These parts are User Operations, Musician Operations and News Operations. In each part,
 related SQL tables, SQL queries, Python codes and JavaScript methods will be explained.
@@ -432,3 +432,172 @@ Update and delete user functions can be seen below.
            return jsonify(True)
        except:
            return jsonify(False)
+
+
+Musician Operations
+===================
+
+In this section, developments required for musician operations will be explained.
+
+
+SQL
+---
+
+Information regarding musicians such as musician name, genre, establish year etc. kept in the database table MUSICIAN_DBT. This table also will be referenced by some tables that my project colleague worked on.
+
+Create table query for MUSICIAN_DBT can be seen below:
+
+.. code-block:: sql
+   :linenos:
+
+   CREATE TABLE IF NOT EXISTS MUSICIAN_DBT(
+                          MUSICIANID SERIAL PRIMARY KEY,
+                          MUSICIANNAME VARCHAR(40) UNIQUE NOT NULL,
+                          MUSICIANGENRE VARCHAR(40),
+                          MUSICIANESTYEAR VARCHAR(4) NOT NULL,
+                          MUSICIANIMGURL VARCHAR(200),
+                          MUSICIANDESC VARCHAR(300))
+
+
+Insert, Update and Delete queries for MUSICIAN_DBT are:
+
+
+.. code-block:: sql
+   :linenos:
+
+   INSERT INTO MUSICIAN_DBT(MUSICIANNAME, MUSICIANGENRE, MUSICIANESTYEAR, MUSICIANIMGURL, MUSICIANDESC)
+                    VALUES (%s, %s, %s, %s, %s) RETURNING MUSICIANID;
+
+.. code-block:: sql
+   :linenos:
+
+   UPDATE MUSICIAN_DBT SET MUSICIANNAME = %s,
+                           MUSICIANGENRE = %s,
+                           MUSICIANESTYEAR = %s,
+                           MUSICIANIMGURL = %s,
+                           MUSICIANDESC = %s
+                    WHERE MUSICIANID = %s
+
+.. code-block:: python
+   :linenos:
+
+   myQuery = "DELETE FROM MUSICIAN_DBT WHERE MUSICIANID = " + str(musicianId)
+
+
+%s parameters are filled with python format functions.
+
+Select query is performed for MUSICIAN_DBT like the user's select query with FilterExpression class generically. Select query can be seen below.
+
+.. code-block:: sql
+   :linenos:
+
+   def Get(filterExpression = None):
+       connection, cursor = basehandler.DbConnect()
+
+       myQuery = "SELECT * FROM MUSICIAN_DBT"
+
+       if filterExpression is None:
+           cursor = basehandler.DbExecute(myQuery, connection, cursor)
+       else:
+           myQuery += filterExpression.GetWhere()
+           cursor = basehandler.DbExecute(myQuery, connection, cursor, filterExpression.GetParameters())
+
+       musicianList = []
+
+       for musician in cursor.fetchall():
+           tempMusician = Musician()
+
+           tempMusician.musicianId = musician[0]
+           tempMusician.name = musician[1]
+           tempMusician.genre = musician[2]
+           tempMusician.establishYear = musician[3]
+           tempMusician.imgUrl = musician[4]
+           tempMusician.description = musician[5]
+
+           musicianList.append(tempMusician)
+
+       basehandler.DbClose(connection, cursor)
+
+       return musicianList
+
+Add Musician
+------------
+
+This is strictly an admin privilege. After logining in and entering the musician page, admins face across with a section that lets them add new musicians. When they fill the text areas with the regarding information and clicking the add button,
+JavaScript function will be triggered. This function collects whole data into a musician class. After object construction, AJAX request rises and sends this information to the server
+side. Server side captures the object and after various validations (such as information being not null etc.), if data is valid, insert operation will be successfully executed.
+
+Created JavaScript funcion and the AJAX call are:
+
+.. code-block:: javascript
+   :linenos:
+
+   function AddMusician()
+   {
+      var desc = document.getElementById("musicianadd_musicianDesc");
+
+      $.getJSON('/addmusician',
+      {
+         musicianadd_musicianName: $('input[name="musicianadd_musicianName"]').val(),
+         musicianadd_musicianGenre: $('input[name="musicianadd_musicianGenre"]').val(),
+         musicianadd_musicianEstYear: $('input[name="musicianadd_musicianEstYear"]').val(),
+         musicianadd_musicianImgUrl: $('input[name="musicianadd_musicianImgUrl"]').val(),
+         musicianadd_musicianDesc: desc.value
+      },
+      function(data)
+      {
+         if(data == "")
+            location.reload();
+         else
+         {
+            CustomAlert(data);
+         }
+      });
+
+      return false;
+   }
+
+Server side codes can be seen below.
+
+.. code-block:: python
+   :linenos:
+
+   @musicianoperationshelper.route('/addmusician', methods=['GET', 'POST'])
+   def AddMusician():
+       if not IsAuthenticated():
+           return jsonify("You must be logged in to add a musician")
+
+       if not IsAdmin():
+           return jsonify("You must have admin privileges to add a musician")
+
+       musician = Musician()
+
+       musician.name = request.args.get('musicianadd_musicianName', "", type=STRING)
+       musician.genre = request.args.get('musicianadd_musicianGenre', "", type=STRING)
+       musician.establishYear = request.args.get('musicianadd_musicianEstYear', "", type=STRING)
+
+       imgUrl = request.args.get('musicianadd_musicianImgUrl', "", type=STRING)
+
+       if imgUrl != "":
+           musician.imgUrl = imgUrl
+
+       musician.description = request.args.get('musicianadd_musicianDesc', "", type=STRING)
+
+       filterParameter = FilterParameter("MUSICIANNAME", "LIKE", musician.name)
+       filterExpression = FilterExpression()
+       filterExpression.AddParameter(filterParameter)
+
+       musicians = musicianhandler.Get(filterExpression)
+
+       if len(musicians) > 0:
+           return jsonify("This musician already exists")
+
+       if len(musician.establishYear) != 4 and not musician.establishYear.isdigit():
+           return jsonify("Establish year must consist of 4 digits")
+
+       if int(musician.establishYear) < 1800:
+           return jsonify("Establish year must be bigger than 1800")
+
+       musicianhandler.Insert(musician)
+
+       return jsonify("")
