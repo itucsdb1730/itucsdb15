@@ -981,6 +981,11 @@ Created JavaScript funcion and the AJAX call are:
    }
 
 
+.. raw:: latex
+
+    \newpage
+
+
 Server side codes can be seen below.
 
 
