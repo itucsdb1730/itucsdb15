@@ -465,7 +465,11 @@ Insert, Update and Delete queries for MUSICIAN_DBT are:
 .. code-block:: sql
    :linenos:
 
-   INSERT INTO MUSICIAN_DBT(MUSICIANNAME, MUSICIANGENRE, MUSICIANESTYEAR, MUSICIANIMGURL, MUSICIANDESC)
+   INSERT INTO MUSICIAN_DBT(MUSICIANNAME,
+                            MUSICIANGENRE,
+                            MUSICIANESTYEAR,
+                            MUSICIANIMGURL,
+                            MUSICIANDESC)
                     VALUES (%s, %s, %s, %s, %s) RETURNING MUSICIANID;
 
 .. code-block:: sql
@@ -601,3 +605,153 @@ Server side codes can be seen below.
        musicianhandler.Insert(musician)
 
        return jsonify("")
+
+Update Musician
+---------------
+
+Admins can update musician information. After clicking the update button for a specific musician, admins can change the information for the musicians. After clicking submit,
+the changes that are done are sent to server side by AJAX call. On server side, with the help of the python code, changes are applied to the database if there are no restrictions. If admins desire to change the musician name however, the musician name must be new to the database.
+
+.. code-block:: python
+   :linenos:
+
+   @musicianoperationshelper.route('/updatemusician', methods=['GET', 'POST'])
+   def UpdateMusician():
+       if not IsAuthenticated():
+           return jsonify("You must be logged in to update a musician")
+
+       if not IsAdmin():
+           return jsonify("You must have admin privileges to update a musician")
+
+       musicianId = request.args.get('musicianId', "", type=int)
+       name = request.args.get('name', "", type=STRING)
+       genre = request.args.get('genre', "", type=STRING)
+       establishYear = request.args.get('establishYear', "", type=STRING)
+       imgUrl = request.args.get('imgUrl', "", type=STRING)
+       description = request.args.get('description', "", type=STRING)
+
+       filterParameter1 = FilterParameter("MUSICIANNAME", "LIKE", name)
+
+       filterExpression = FilterExpression()
+       filterExpression.AddParameter(filterParameter1)
+
+       musicianList = musicianhandler.Get(filterExpression)
+
+       if len(musicianList) > 0:
+           return jsonify("This musician already exists. Enter a different musician name.")
+
+       musician = musicianhandler.GetByID(musicianId)
+
+       musician.name = name
+       musician.genre = genre
+       musician.establishYear = establishYear
+       musician.imgUrl = imgUrl
+       musician.description = description
+
+       musicianhandler.Update(musician)
+
+       return jsonify("")
+
+
+Delete Musician
+---------------
+
+Admins can delete any musician. After clicking the delete button for a specific musician, admins can delete
+the message. After clicking submit, the changes that are done are sent to server side by AJAX call. On server side, with the help of the python code, that musician
+is removed from the database.
+
+.. code-block:: python
+   :linenos:
+
+   @musicianoperationshelper.route('/deletemusician', methods=['GET', 'POST'])
+   def DeleteMusician():
+       if not IsAuthenticated():
+           return redirect('/')
+
+       if not IsAdmin():
+           return redirect('/')
+
+       musicianId = request.args.get('musicianId', "", type=int)
+
+       try:
+           musicianhandler.Delete(musicianId)
+
+           return jsonify(True)
+       except:
+           return jsonify(False)
+
+Showing Musicians
+-----------------
+
+Any user type can see the musicians. Showing musician is implemented on musicians page. On this page, all musicians are shown in a list form for everyone. Also, musicians can be searched. When searching, they are filtered by containing the musician name.
+When showing, all musicians (or searched musicians) are ordered alphabetically.
+
+All musicians in the database are shown if there are no search data is provided. The filtering is done in the below code:
+
+.. code-block:: python
+   :linenos:
+
+   @musicianoperations.route('/musicians', methods=['GET'])
+   def Musicians():
+       searchBy = request.args.get('searchBy', "", type=STRING)
+
+       filterParameter = FilterParameter("MUSICIANNAME", "LIKE", "%" + searchBy + "%")
+       filterExpression = FilterExpression()
+       filterExpression.AddParameter(filterParameter)
+
+       musicianList = musicianhandler.Get(filterExpression)
+
+       return render_template('musicians.html', musicianList = musicianList, authenticated = IsAuthenticated(), admin = IsAdmin(), fullName = GetFullNameSession())
+
+Login users can also trigger a collapsed area about the musicians. This area will provide detailed musician information. If it is not a logged in user, only the musician list (not in clickable form) will be shows. Collapse area for the musician information section is applied by checking if the user is authenticated.
+
+Musicians on the musician page are shown by the following html code:
+
+.. code-block:: html
+   :linenos:
+
+   <section id="musicianListSection" style="margin-top: 40px;">
+   <ul class="list-group">
+      {% for m in musicianList|sort(attribute="name") %}
+      <table>
+         <tr>
+            <td>
+               <li class="list-group-item" {% if not authenticated %} style="width: 600px;" {% endif %} {% if authenticated %} style="width: 600px; cursor: pointer;" data-toggle="collapse" data-target='#{{ loop.index }}' {% endif %}>{{ m.name }}</li>
+            </td>
+
+            {% if admin %}
+            <td style="padding-left: 20px;">
+               <button class="glyphicon-button update" value="{{ m.musicianId }}" data-toggle="modal" data-target="#updateMusicianModal"
+                     onclick="return UpdateMusicianModal({{ m.musicianId }}, '{{ m.name }}', '{{ m.genre }}', '{{ m.establishYear }}', '{{ m.imgUrl }}', '{{ m.description }}');">
+
+                  <span class="glyphicon glyphicon-pencil"></span>
+               </button>
+            </td>
+
+            <td>
+               <button class='glyphicon-button delete' value="{{ m.musicianId }}" data-toggle="modal" data-target="#deleteMusicianModal"
+                     onclick='return DeleteMusicianModal({{ m.musicianId }});'>
+
+                  <span class="glyphicon glyphicon-trash"></span>
+               </button>
+            </td>
+            {% endif %}
+         </tr>
+      </table>
+
+      <div class="collapse" id={{ loop.index }}>
+         <div class="media list-group-item" style="margin: 15px 0 15px 0; margin-left: 100px; width: 600px; background: #d5d38f;">
+            <div class="media-left">
+               <img class="media-object" src="{{ m.imgUrl }}" height="64" width="64">
+            </div>
+
+            <div class="media-body">
+               <p class="media-heading"><strong>Genre: </strong>{{ m.genre }}</p>
+               <p class="media-heading"><strong>Establish Year: </strong>{{ m.establishYear }}</p>
+               <p style="margin-top: 26px; word-break: break-all;">{{ m.description }}</p>
+            </div>
+         </div>
+      </div>
+      {% endfor %}
+   </ul>
+   </section>
