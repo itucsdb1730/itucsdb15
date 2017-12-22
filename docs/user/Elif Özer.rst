@@ -192,15 +192,10 @@ If you are an admin user, you have all the privileges that a regular user has. Y
      News Page (Admin)
 
 
+When adding, updating and deleting news, you will fave with modals. The update and the delete modals are shown as an example.
+
+
 .. figure:: ../images/15.*
-     :scale: 100 %
-     :alt: News Page
-     :align: center
-
-     News Page (Adding News)
-
-
-.. figure:: ../images/16.*
      :scale: 100 %
      :alt: News Page
      :align: center
@@ -208,7 +203,7 @@ If you are an admin user, you have all the privileges that a regular user has. Y
      News Page (Updating News)
 
 
-.. figure:: ../images/17.*
+.. figure:: ../images/16.*
      :scale: 100 %
      :alt: News Page
      :align: center
