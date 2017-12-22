@@ -20,7 +20,6 @@ People can create a profile, change their settings whenever they want, check out
 
 We provide more than you ever need!
 
-
 **You can access our website by clicking: http://itucsdb1730.mybluemix.net/**
 
 

@@ -1,7 +1,6 @@
 Installation Guide
 ******************
 
-
 Every team member has to install the following tools on their computers:
 
 Git
@@ -11,6 +10,7 @@ Most Linux distributions already include “git” as a package, so you can inst
 through the package manager. For other systems, visit https://git-scm.com/downloads.
 
 We used:
+
 
 .. code-block:: console
 
@@ -26,6 +26,7 @@ https://www.python.org/downloads/.
 
 We used:
 
+
 .. code-block:: console
 
    sudo apt-get install python3.5
@@ -38,6 +39,7 @@ On Linux, run the command “ sudo pip3 install -U flask ”. For other
 systems, visit http://flask.pocoo.org/.
 
 We used:
+
 
 .. code-block:: console
 
@@ -52,6 +54,7 @@ other systems, visit http://initd.org/psycopg/.
 
 We used:
 
+
 .. code-block:: console
 
    sudo pip3 install -U psycopg2
@@ -64,6 +67,7 @@ On Linux, run the command “ sudo pip3 install -U sphinx ”. For other
 systems, visit http://sphinx-doc.org/.
 
 We used:
+
 
 .. code-block:: console
 

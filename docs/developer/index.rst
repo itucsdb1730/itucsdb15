@@ -1,7 +1,6 @@
 Developer Guide
 ===============
 
-
 In our developer guide, we will explain how the project works and what operations have been implemented in technical terms. This is a guide intended for
 developers to enjoy our work.
 
@@ -20,10 +19,10 @@ While developing we used:
 
    * Bluemix
 
-
 Every developer will provide their ER diagrams on their own section.
 
 You can see the general ER diagram which is created by using Microsoft Visio below:
+
 
 .. figure:: ../images/1.png
      :scale: 100 %
@@ -32,7 +31,9 @@ You can see the general ER diagram which is created by using Microsoft Visio bel
 
      ER Diagram
 
+
 **You can reach our source code by clicking: https://github.com/itucsdb1730/itucsdb1730**
+
 
 .. toctree::
 
