@@ -10,6 +10,7 @@ related SQL tables, SQL queries, Python codes and JavaScript methods will be exp
 
 You can see the ER diagram for the parts implemented by Elif Özer below:
 
+
 .. figure:: ../images/2.*
      :scale: 100 %
      :alt: ER Diagram
@@ -124,17 +125,19 @@ News table will be explained later on, but this table has a foreign key relation
 
 Create table query for USER_DBT can be seen below:
 
+
 .. code-block:: sql
    :linenos:
 
-    CREATE TABLE IF NOT EXISTS USER_DBT(
-                   USERID SERIAL PRIMARY KEY,
-                   USERFIRSTNAME VARCHAR(40),
-                   USERLASTNAME VARCHAR(40),
-                   USERUSERNAME VARCHAR(40) NOT NULL UNIQUE,
-                   USERPASSWORD VARCHAR(40) NOT NULL,
-                   USEREMAIL VARCHAR(60) NOT NULL UNIQUE,
-                   USERTYPE INTEGER NOT NULL)
+   CREATE TABLE IF NOT EXISTS USER_DBT(
+         USERID SERIAL PRIMARY KEY,
+         USERFIRSTNAME VARCHAR(40),
+         USERLASTNAME VARCHAR(40),
+         USERUSERNAME VARCHAR(40) NOT NULL UNIQUE,
+         USERPASSWORD VARCHAR(40) NOT NULL,
+         USEREMAIL VARCHAR(60) NOT NULL UNIQUE,
+         USERTYPE INTEGER NOT NULL)
+
 
 Insert, Update and Delete queries for USER_DBT are:
 
@@ -143,13 +146,14 @@ Insert, Update and Delete queries for USER_DBT are:
    :linenos:
 
    INSERT INTO USER_DBT(
-                  USERFIRSTNAME,
-                  USERLASTNAME,
-                  USERUSERNAME,
-                  USERPASSWORD,
-                  USEREMAIL,
-                  USERTYPE)
-               VALUES (%s, %s, %s, %s, %s, %s) RETURNING USERID;
+        USERFIRSTNAME,
+        USERLASTNAME,
+        USERUSERNAME,
+        USERPASSWORD,
+        USEREMAIL,
+        USERTYPE)
+      VALUES (%s, %s, %s, %s, %s, %s) RETURNING USERID;
+
 
 .. code-block:: sql
    :linenos:
@@ -161,6 +165,7 @@ Insert, Update and Delete queries for USER_DBT are:
                        USEREMAIL = %s
                  WHERE USERID = %s
 
+
 .. code-block:: python
    :linenos:
 
@@ -170,6 +175,7 @@ Insert, Update and Delete queries for USER_DBT are:
 %s parameters are filled with python format functions.
 
 Select query can be found in the below function:
+
 
 .. code-block:: python
    :linenos:
@@ -204,6 +210,7 @@ Select query can be found in the below function:
 
        return userList
 
+
 FilterExpression class holds the list of column name, the operator and the operand. When we call GetWhere function, we use FilterExpression class to create a generic where contidion.
 FilterParameter holds the column name, the operator and the operand. FilterExpression is a list of FilterParameters.
 
@@ -212,6 +219,7 @@ Register User
 
 In order to register a new user, after user provides data via the interface and click the submit button, JavaScript combines this data. After combining,
 AJAX request triggers our Python Code. JavaScript and Python codes can be seen below.
+
 
 .. code-block:: javascript
    :linenos:
@@ -289,11 +297,13 @@ AJAX request triggers our Python Code. JavaScript and Python codes can be seen b
 
        return jsonify("")
 
+
 Login User
 ----------
 
 In order to login to our website, after registered user provides data via the interface and click the submit button, JavaScript combines this data. After combining,
 AJAX request triggers our Python Code. JavaScript and Python codes can be seen below.
+
 
 .. code-block:: javascript
    :linenos:
@@ -342,7 +352,9 @@ AJAX request triggers our Python Code. JavaScript and Python codes can be seen b
 
        return jsonify("")
 
+
 Users can log out using the dropdown menu on the upper right corner of the secret. Clicking this "logout" link will trigger the operation.
+
 
 .. code-block:: python
    :linenos:
@@ -355,6 +367,7 @@ Users can log out using the dropdown menu on the upper right corner of the secre
 
        return redirect('/')
 
+
 User Settings
 -------------
 
@@ -364,6 +377,7 @@ After this request, updated values will be updated in the database.
 Also, removing a user from the database is triggered after user clicks the delete button.
 
 Update and delete user functions can be seen below.
+
 
 .. code-block:: python
    :linenos:
@@ -439,7 +453,6 @@ Musician Operations
 
 In this section, developments required for musician operations will be explained.
 
-
 SQL
 ---
 
@@ -447,16 +460,17 @@ Information regarding musicians such as musician name, genre, establish year etc
 
 Create table query for MUSICIAN_DBT can be seen below:
 
+
 .. code-block:: sql
    :linenos:
 
    CREATE TABLE IF NOT EXISTS MUSICIAN_DBT(
-                          MUSICIANID SERIAL PRIMARY KEY,
-                          MUSICIANNAME VARCHAR(40) UNIQUE NOT NULL,
-                          MUSICIANGENRE VARCHAR(40),
-                          MUSICIANESTYEAR VARCHAR(4) NOT NULL,
-                          MUSICIANIMGURL VARCHAR(200),
-                          MUSICIANDESC VARCHAR(300))
+         MUSICIANID SERIAL PRIMARY KEY,
+         MUSICIANNAME VARCHAR(40) UNIQUE NOT NULL,
+         MUSICIANGENRE VARCHAR(40),
+         MUSICIANESTYEAR VARCHAR(4) NOT NULL,
+         MUSICIANIMGURL VARCHAR(200),
+         MUSICIANDESC VARCHAR(300))
 
 
 Insert, Update and Delete queries for MUSICIAN_DBT are:
@@ -465,12 +479,14 @@ Insert, Update and Delete queries for MUSICIAN_DBT are:
 .. code-block:: sql
    :linenos:
 
-   INSERT INTO MUSICIAN_DBT(MUSICIANNAME,
-                            MUSICIANGENRE,
-                            MUSICIANESTYEAR,
-                            MUSICIANIMGURL,
-                            MUSICIANDESC)
-                    VALUES (%s, %s, %s, %s, %s) RETURNING MUSICIANID;
+   INSERT INTO MUSICIAN_DBT(
+         MUSICIANNAME,
+         MUSICIANGENRE,
+         MUSICIANESTYEAR,
+         MUSICIANIMGURL,
+         MUSICIANDESC)
+      VALUES (%s, %s, %s, %s, %s) RETURNING MUSICIANID;
+
 
 .. code-block:: sql
    :linenos:
@@ -482,6 +498,7 @@ Insert, Update and Delete queries for MUSICIAN_DBT are:
                            MUSICIANDESC = %s
                     WHERE MUSICIANID = %s
 
+
 .. code-block:: python
    :linenos:
 
@@ -491,6 +508,7 @@ Insert, Update and Delete queries for MUSICIAN_DBT are:
 %s parameters are filled with python format functions.
 
 Select query is performed for MUSICIAN_DBT like the user's select query with FilterExpression class generically. Select query can be seen below.
+
 
 .. code-block:: sql
    :linenos:
@@ -524,6 +542,7 @@ Select query is performed for MUSICIAN_DBT like the user's select query with Fil
 
        return musicianList
 
+
 Add Musician
 ------------
 
@@ -532,6 +551,7 @@ JavaScript function will be triggered. This function collects whole data into a 
 side. Server side captures the object and after various validations (such as information being not null etc.), if data is valid, insert operation will be successfully executed.
 
 Created JavaScript funcion and the AJAX call are:
+
 
 .. code-block:: javascript
    :linenos:
@@ -561,7 +581,9 @@ Created JavaScript funcion and the AJAX call are:
       return false;
    }
 
+
 Server side codes can be seen below.
+
 
 .. code-block:: python
    :linenos:
@@ -606,11 +628,13 @@ Server side codes can be seen below.
 
        return jsonify("")
 
+
 Update Musician
 ---------------
 
 Admins can update musician information. After clicking the update button for a specific musician, admins can change the information for the musicians. After clicking submit,
 the changes that are done are sent to server side by AJAX call. On server side, with the help of the python code, changes are applied to the database if there are no restrictions. If admins desire to change the musician name however, the musician name must be new to the database.
+
 
 .. code-block:: python
    :linenos:
@@ -660,6 +684,7 @@ Admins can delete any musician. After clicking the delete button for a specific 
 the message. After clicking submit, the changes that are done are sent to server side by AJAX call. On server side, with the help of the python code, that musician
 is removed from the database.
 
+
 .. code-block:: python
    :linenos:
 
@@ -680,6 +705,7 @@ is removed from the database.
        except:
            return jsonify(False)
 
+
 Showing Musicians
 -----------------
 
@@ -687,6 +713,7 @@ Any user type can see the musicians. Showing musician is implemented on musician
 When showing, all musicians (or searched musicians) are ordered alphabetically.
 
 All musicians in the database are shown if there are no search data is provided. The filtering is done in the below code:
+
 
 .. code-block:: python
    :linenos:
@@ -703,24 +730,26 @@ All musicians in the database are shown if there are no search data is provided.
 
        return render_template('musicians.html', musicianList = musicianList, authenticated = IsAuthenticated(), admin = IsAdmin(), fullName = GetFullNameSession())
 
+
 Login users can also trigger a collapsed area about the musicians. This area will provide detailed musician information. If it is not a logged in user, only the musician list (not in clickable form) will be shows. Collapse area for the musician information section is applied by checking if the user is authenticated.
 
 Musicians on the musician page are shown by the following html code:
 
+
 .. code-block:: html
    :linenos:
 
-   <section id="musicianListSection" style="margin-top: 40px;">
+   <section id="musicianListSection" ...">
    <ul class="list-group">
       {% for m in musicianList|sort(attribute="name") %}
       <table>
          <tr>
             <td>
-               <li class="list-group-item" {% if not authenticated %} style="width: 600px;" {% endif %} {% if authenticated %} style="width: 600px; cursor: pointer;" data-toggle="collapse" data-target='#{{ loop.index }}' {% endif %}>{{ m.name }}</li>
+               <li class="list-group-item" ... {% if authenticated %} ... data-toggle="collapse" data-target='#{{ loop.index }}' {% endif %}>{{ m.name }}</li>
             </td>
 
             {% if admin %}
-            <td style="padding-left: 20px;">
+            <td ...>
                <button class="glyphicon-button update" value="{{ m.musicianId }}" data-toggle="modal" data-target="#updateMusicianModal"
                      onclick="return UpdateMusicianModal({{ m.musicianId }}, '{{ m.name }}', '{{ m.genre }}', '{{ m.establishYear }}', '{{ m.imgUrl }}', '{{ m.description }}');">
 
@@ -740,15 +769,15 @@ Musicians on the musician page are shown by the following html code:
       </table>
 
       <div class="collapse" id={{ loop.index }}>
-         <div class="media list-group-item" style="margin: 15px 0 15px 0; margin-left: 100px; width: 600px; background: #d5d38f;">
+         <div class="media list-group-item" ...>
             <div class="media-left">
-               <img class="media-object" src="{{ m.imgUrl }}" height="64" width="64">
+               <img class="media-object" src="{{ m.imgUrl }}" ...>
             </div>
 
             <div class="media-body">
                <p class="media-heading"><strong>Genre: </strong>{{ m.genre }}</p>
                <p class="media-heading"><strong>Establish Year: </strong>{{ m.establishYear }}</p>
-               <p style="margin-top: 26px; word-break: break-all;">{{ m.description }}</p>
+               <p ... word-break: break-all;">{{ m.description }}</p>
             </div>
          </div>
       </div>
@@ -756,11 +785,11 @@ Musicians on the musician page are shown by the following html code:
    </ul>
    </section>
 
+
 News Operations
 ===============
 
 In this section, developments required for news operations will be explained.
-
 
 SQL
 ---
@@ -771,26 +800,28 @@ Moreover, News table has foreign key relation to USER_DBT table on the user id (
 
 Create table query for NEWS_DBT and create view script for NEWSVIEW can be seen below:
 
+
 .. code-block:: sql
    :linenos:
 
    CREATE TABLE IF NOT EXISTS NEWS_DBT(
-                      NEWSID SERIAL PRIMARY KEY,
-                      NEWSTITLE VARCHAR(200) NOT NULL,
-                      NEWSMUSICIANID INTEGER REFERENCES MUSICIAN_DBT (MUSICIANID) ON DELETE CASCADE ON UPDATE CASCADE,
-                      NEWSCONTENT VARCHAR(400) NOT NULL,
-                      NEWSIMGURL VARCHAR(200),
-                      CREATEDBY INTEGER REFERENCES USER_DBT (USERID) ON DELETE CASCADE ON UPDATE CASCADE,
-                      CREATEDATE TIMESTAMP DEFAULT LOCALTIMESTAMP,
-                      UPDATEDATE TIMESTAMP DEFAULT LOCALTIMESTAMP)
+         NEWSID SERIAL PRIMARY KEY,
+         NEWSTITLE VARCHAR(200) NOT NULL,
+         NEWSMUSICIANID INTEGER REFERENCES MUSICIAN_DBT (MUSICIANID) ON DELETE CASCADE ON UPDATE CASCADE,
+         NEWSCONTENT VARCHAR(400) NOT NULL,
+         NEWSIMGURL VARCHAR(200),
+         CREATEDBY INTEGER REFERENCES USER_DBT (USERID) ON DELETE CASCADE ON UPDATE CASCADE,
+         CREATEDATE TIMESTAMP DEFAULT LOCALTIMESTAMP,
+         UPDATEDATE TIMESTAMP DEFAULT LOCALTIMESTAMP)
+
 
 .. code-block:: sql
    :linenos:
 
    CREATE VIEW NEWSVIEW AS
-                SELECT N.*, U.USERUSERNAME AS CREATORNAME, M.MUSICIANNAME FROM NEWS_DBT N
-                       INNER JOIN USER_DBT U ON N.CREATEDBY = U.USERID
-                       INNER JOIN MUSICIAN_DBT M ON N.NEWSMUSICIANID = M.MUSICIANID
+         SELECT N.*, U.USERUSERNAME AS CREATORNAME, M.MUSICIANNAME FROM NEWS_DBT N
+               INNER JOIN USER_DBT U ON N.CREATEDBY = U.USERID
+               INNER JOIN MUSICIAN_DBT M ON N.NEWSMUSICIANID = M.MUSICIANID
 
 
 Insert, Update and Delete queries for NEWS_DBT are:
@@ -799,17 +830,24 @@ Insert, Update and Delete queries for NEWS_DBT are:
 .. code-block:: sql
    :linenos:
 
-   INSERT INTO NEWS_DBT(NEWSTITLE, NEWSMUSICIANID, NEWSCONTENT, NEWSIMGURL, CREATEDBY)
-                 VALUES (%s, %s, %s, %s, %s) RETURNING NEWSID;
+   INSERT INTO NEWS_DBT(
+         NEWSTITLE,
+         NEWSMUSICIANID,
+         NEWSCONTENT,
+         NEWSIMGURL,
+         CREATEDBY)
+      VALUES (%s, %s, %s, %s, %s) RETURNING NEWSID;
+
 
 .. code-block:: sql
    :linenos:
 
    UPDATE NEWS_DBT SET NEWSTITLE = %s,
-                      NEWSMUSICIANID = %s,
-                      NEWSCONTENT = %s,
-                      NEWSIMGURL = %s
+                       NEWSMUSICIANID = %s,
+                       NEWSCONTENT = %s,
+                       NEWSIMGURL = %s
                  WHERE NEWSID = %s
+
 
 .. code-block:: python
    :linenos:
@@ -820,6 +858,7 @@ Insert, Update and Delete queries for NEWS_DBT are:
 %s parameters are filled with python format functions.
 
 Select query is perfomed with FilterExpression class generically. Code can be seen below.
+
 
 .. code-block:: sql
    :linenos:
@@ -854,3 +893,206 @@ Select query is perfomed with FilterExpression class generically. Code can be se
        basehandler.DbClose(connection, cursor)
 
        return newsList
+
+
+Create News
+-----------
+
+This is strictly an admin privilege. After logining in and entering the news page, admins face across with a button that lets them add news. When they click the button, a modal pops up. After they fill the text areas with the regarding information and clicking the add button,
+JavaScript function will be triggered. This function collects whole data into news class. After object construction, AJAX request rises and sends this information to the server
+side. Server side captures the object and after various validations (such as information being not null etc.), if data is valid, insert operation will be successfully executed.
+
+When an admin creates news, the creator name for that specific news will be shown.
+
+Created JavaScript funcion and the AJAX call are:
+
+
+.. code-block:: javascript
+   :linenos:
+
+   function AddNews()
+   {
+      $.getJSON('/addnews',
+      {
+         addnews_title: document.getElementById("addnews_title").value,
+         addnews_musician: document.getElementById("addnews_musician").value,
+         addnews_imgUrl: document.getElementById("addnews_imgUrl").value,
+         addnews_content: $("#addnews_content").val()
+      },
+      function(data)
+      {
+         if(data == "")
+         {
+            location.reload();
+         }
+         else
+         {
+            CustomNewsAddAlert(data);
+         }
+      });
+
+      return false;
+   }
+
+
+Server side codes can be seen below.
+
+
+.. code-block:: python
+   :linenos:
+
+   @newsoperationshelper.route('/addnews', methods=['GET', 'POST'])
+   def AddNews():
+       if not IsAuthenticated():
+           return jsonify("You must be logged in to add news")
+
+       if not IsAdmin():
+           return jsonify("You must have admin privileges to add news")
+
+       news = News()
+
+       news.title = request.args.get('addnews_title', "", type=STRING)
+       news.content = request.args.get('addnews_content', "", type=STRING)
+
+       musicianName = request.args.get('addnews_musician', "", type=STRING)
+
+       musician = musicianhandler.GetByMusicianName(musicianName)
+       news.musicianId = musician.musicianId
+
+       imgUrl = request.args.get('addnews_imgUrl', "", type=STRING)
+
+       if imgUrl != "":
+           news.imgUrl = imgUrl
+
+       validationMsg = news.IsValid()
+
+       if validationMsg != "":
+           return jsonify(validationMsg)
+
+       news.createdBy = GetUserIdSession()
+
+       newshandler.Insert(news)
+
+       return jsonify("")
+
+
+Update News
+-----------
+
+Admins can update news information. After clicking the update button for specific news, admins can change the information for the news. After clicking submit,
+the changes that are done are sent to server side by AJAX call. On server side, with the help of the python code, changes are applied to the database if there are no restrictions. If admins desire to change the musician name regarding the news however, the musician name must be present in the database.
+
+When an admin updates certain news, update date for that specific news will be shown on the news section.
+
+
+.. code-block:: python
+   :linenos:
+
+   @newsoperationshelper.route('/updatenews', methods=['GET', 'POST'])
+   def UpdateNews():
+       if not IsAuthenticated():
+           return jsonify("You must be logged in to update news")
+
+       if not IsAdmin():
+           return jsonify("You must have admin privileges to update news")
+
+       newsId = request.args.get('newsId', "", type=int)
+       title = request.args.get('title', "", type=STRING)
+       musicianName = request.args.get('musicianName', "", type=STRING)
+       imgUrl = request.args.get('imgUrl', "", type=STRING)
+       content = request.args.get('content', "", type=STRING)
+
+       musician = musicianhandler.GetByMusicianName(musicianName)
+
+       news = newshandler.GetByID(newsId)
+
+       news.title = title
+       news.musicianId = musician.musicianId
+       news.imgUrl = imgUrl
+       news.content = content
+
+       validationMsg = news.IsValid()
+
+       if validationMsg != "":
+           return jsonify(validationMsg)
+
+       newshandler.Update(news)
+
+       return jsonify("")
+
+
+Delete News
+-----------
+
+Admins can delete any news. After clicking the delete button for specific news, admins can delete
+the news. After clicking submit, the changes that are done are sent to server side by AJAX call. On server side, with the help of the python code, that news
+is removed from the database.
+
+
+.. code-block:: python
+   :linenos:
+
+   @newsoperationshelper.route('/deletenews', methods=['GET', 'POST'])
+   def DeleteNews():
+       if not IsAuthenticated():
+           return redirect('/')
+
+       if not IsAdmin():
+           return redirect('/')
+
+       newsId = request.args.get('newsId', "", type=int)
+
+       try:
+           newshandler.Delete(newsId)
+
+           return jsonify(True)
+       except:
+           return jsonify(False)
+
+
+Showing News
+------------
+
+Showing news is implemented on the news page.
+
+If the person seeing the news page is not a logged in user, he/she can only see the last updated 3 news on this page. He/she cannot be able to search among the news.
+If the person seeing the news page is a logged in user, he/she can see all the available news as well as being able to search among the news by providing a musician name.
+If the person seeing the news page is an admin user, additionally he/she can add news, update or delete any news.
+
+When searching, news are filtered by the musician name. When showing, all news (or searched news) are ordered by the last update date.
+
+The filtering is done in the below code:
+
+
+.. code-block:: python
+   :linenos:
+
+   @newsoperations.route('/news', methods=['GET'])
+   def News():
+       if not IsAuthenticated():
+           newsList = newsviewhandler.Get()
+           newsList.sort(key=lambda x: x.updateDate, reverse=True)
+
+           newsList = newsList[:3]
+
+           for n in newsList:
+               n.updateDate = n.updateDate.strftime('%d.%m.%Y')
+
+           return render_template('news.html', newsList = newsList, authenticated = IsAuthenticated(), admin = IsAdmin(), fullName = GetFullNameSession())
+
+       searchBy = request.args.get('searchBy', "", type=STRING)
+
+       filterParameter = FilterParameter("MUSICIANNAME", "LIKE", "%" + searchBy + "%")
+       filterExpression = FilterExpression()
+       filterExpression.AddParameter(filterParameter)
+
+       newsList = newsviewhandler.Get(filterExpression)
+       newsList.sort(key=lambda x: x.updateDate, reverse=True)
+
+       for n in newsList:
+           n.updateDate = n.updateDate.strftime('%d.%m.%Y')
+
+       return render_template('news.html', newsList = newsList, authenticated = IsAuthenticated(), admin = IsAdmin(), fullName = GetFullNameSession())
+
+
+Each news also shows the creator name for that news (one of the admins) and the last update date (also done by the admins).
