@@ -16,7 +16,7 @@ On this page, you can navigate through our website by using the navigation bar a
 
 
 .. figure:: ../images/3.*
-     :scale: 100 %
+     :scale: 75 %
      :alt: Introduction Page
      :align: center
 
@@ -39,7 +39,7 @@ Users can login by providing their username/e-mail and password. After the login
 
 
 .. figure:: ../images/4.*
-     :scale: 100 %
+     :scale: 75 %
      :alt: Login Area
      :align: center
 
