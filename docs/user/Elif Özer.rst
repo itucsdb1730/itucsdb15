@@ -16,11 +16,16 @@ On this page, you can navigate through our website by using the navigation bar a
 
 
 .. figure:: ../images/3.*
-     :scale: 75 %
+     :scale: 100 %
      :alt: Introduction Page
      :align: center
 
      Ticketosaur Introduction Page
+
+
+.. raw:: latex
+
+    \newpage
 
 
 Login-Register Page
@@ -39,7 +44,7 @@ Users can login by providing their username/e-mail and password. After the login
 
 
 .. figure:: ../images/4.*
-     :scale: 75 %
+     :scale: 100 %
      :alt: Login Area
      :align: center
 
@@ -60,6 +65,11 @@ After a successful register operation, users will be redirected to their home pa
      :align: center
 
      Ticketosaur Register Area
+
+
+.. raw:: latex
+
+    \newpage
 
 
 User Home Page
