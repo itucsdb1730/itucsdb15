@@ -102,7 +102,7 @@ If you are not a logged in user, you can see our musician list here. You can als
 Logged In User
 --------------
 
-If you are a logged in user, as well as seeing the musician lise and searching among the musicians just like not logged in users, the musician names on the musician list become clickable for you.
+If you are a logged in user, as well as seeing the musician list and searching among the musicians just like not logged in users, the musician names on the musician list become clickable for you.
 
 Once you click any of the musicians, you can see a collapsible area. This collapsible are contains detailed information about that musician. You can learn everything about them such as their names, music genres they belong in, their establish year and so much more.
 
@@ -118,7 +118,7 @@ Once you click any of the musicians, you can see a collapsible area. This collap
 Admin User
 ----------
 
-If you are an admin user, you have all the privileges that a regular user has. You can also add new musicians to out database, as well as updating the existings ones and deleting them.
+If you are an admin user, you have all the privileges that a regular user has. You can also add new musicians to our database, as well as updating the existings ones and deleting them.
 
 
 .. figure:: ../images/9.*
@@ -143,3 +143,74 @@ If you are an admin user, you have all the privileges that a regular user has. Y
      :align: center
 
      Musician Page (Deleting a Musician)
+
+
+News Page
+=========
+
+This page provides news list, a search option for the news (if have the privileges for it) and different areas for different privileged users. Detailed information is provided below.
+
+Not Logged In User
+------------------
+
+If you are not a logged in user, you can see the last three updated news from our news list here. Unfortunately, you will not have any other permissions on this page.
+
+
+.. figure:: ../images/12.*
+     :scale: 100 %
+     :alt: News Page
+     :align: center
+
+     News Page (Not Logged In)
+
+
+Logged In User
+--------------
+
+If you are a logged in user, as well as seeing the whole news list, you can also search among the news by providing the musician name.
+
+
+.. figure:: ../images/13.*
+     :scale: 100 %
+     :alt: News Page
+     :align: center
+
+     News Page (Logged In)
+
+
+Admin User
+----------
+
+If you are an admin user, you have all the privileges that a regular user has. You can also add news to our database, as well as updating the existings ones and deleting them.
+
+
+.. figure:: ../images/14.*
+     :scale: 100 %
+     :alt: News Page
+     :align: center
+
+     News Page (Admin)
+
+
+.. figure:: ../images/15.*
+     :scale: 100 %
+     :alt: News Page
+     :align: center
+
+     News Page (Adding News)
+
+
+.. figure:: ../images/16.*
+     :scale: 100 %
+     :alt: News Page
+     :align: center
+
+     News Page (Updating News)
+
+
+.. figure:: ../images/17.*
+     :scale: 100 %
+     :alt: News Page
+     :align: center
+
+     News Page (Deleting News)
